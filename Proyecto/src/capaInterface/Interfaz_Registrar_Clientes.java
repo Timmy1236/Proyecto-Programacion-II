@@ -90,25 +90,6 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		textTelefono.setBounds(182, 111, 200, 20);
 		contentPane.add(textTelefono);
 		
-		btnListo = new JButton("Listo");
-		btnListo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int cedula = Integer.parseInt(textCedula.getText());
-				String nombre = textNombre.getText();
-				String apellido = textApellido.getText();
-				String email = textEmail.getText();
-				int telefono = Integer.parseInt(textTelefono.getText());
-				
-				MisMetodosDB.obtenerDatosRegistroCliente(cedula, nombre, apellido, email, telefono);
-				
-				// Cerrar la ventana después de realizar la operación
-		        dispose();
-			}
-		});
-		btnListo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnListo.setBounds(182, 211, 98, 42);
-		contentPane.add(btnListo);
-		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,10 +105,10 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		lblTipo.setBounds(45, 139, 137, 14);
 		contentPane.add(lblTipo);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Dueño", "Comprador/Alquila"}));
-		comboBox.setBounds(182, 135, 200, 22);
-		contentPane.add(comboBox);
+		JComboBox comboBoxClienteTipo = new JComboBox();
+		comboBoxClienteTipo.setModel(new DefaultComboBoxModel(new String[] {"Dueño", "Comprador/Alquila"}));
+		comboBoxClienteTipo.setBounds(182, 135, 200, 22);
+		contentPane.add(comboBoxClienteTipo);
 		
 		JLabel lblInmuebles = new JLabel("Inmuebles");
 		lblInmuebles.setBounds(45, 167, 127, 14);
@@ -143,5 +124,31 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel.setBounds(182, 186, 200, 14);
 		contentPane.add(lblNewLabel);
+		
+		// NOTE: Esto siempre que quede como ultimo en el codigo, para evitar errores :)
+		btnListo = new JButton("Listo");
+		btnListo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Agarramos todo los datos de la interfaz y lo pasamos en variable para pasarselo al metodo.
+				int cedula = Integer.parseInt(textCedula.getText());
+				int telefono = Integer.parseInt(textTelefono.getText());
+				
+				String nombre = textNombre.getText();
+				String apellido = textApellido.getText();
+				String email = textEmail.getText();
+				String inmuebles = textInmuebles.getText();
+				
+				String tipo = (String) comboBoxClienteTipo.getSelectedItem();
+				
+				// TODO!!: Validar los datos antes de pasarlo.
+				MisMetodosDB.obtenerDatosRegistroCliente(cedula, nombre, apellido, email, telefono, inmuebles, tipo);
+				
+				// Cerrar la ventana después de realizar la operación
+		        dispose();
+			}
+		});
+		btnListo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnListo.setBounds(182, 211, 98, 42);
+		contentPane.add(btnListo);
 	}
 }

@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 
 import capaNegocios.MisMetodosDB;
 import capaInterface.Interface;
-import capaInterface.InterfaceDos;
 import capaInterface.Interfaz_Registrar_Clientes;
 
 public class Aplicacion {
@@ -31,7 +30,6 @@ public class Aplicacion {
 	}
 	
 	public static void abrirRegistrarClientes() {
-		// import capaInterface.InterfaceDos;
 		Interfaz_Registrar_Clientes frame = new Interfaz_Registrar_Clientes();
 		frame.setVisible(true);
 	}

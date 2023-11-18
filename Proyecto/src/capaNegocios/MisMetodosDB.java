@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-import capaInterface.InterfaceDos;
-
 public class MisMetodosDB {
 
 	public static String usuario = "root";
@@ -19,12 +17,6 @@ public class MisMetodosDB {
 	public static Connection conectar = null;
 	public static Statement sentenciaSQL = null;
 	public static ResultSet resultado = null;
-	
-	public static void abrirCeoVentana() {
-		// import capaInterface.InterfaceDos;
-		InterfaceDos frame = new InterfaceDos();
-		frame.setVisible(true);
-	}
 
 	// Método que carga el driver para conectar con MySQL
 	public static boolean cargarDriver() {
@@ -37,13 +29,15 @@ public class MisMetodosDB {
 	}
 	
 	// NOTE: ESTO ES UN TEST, BORRARLO!!
-    public static void obtenerDatosRegistroCliente(int cedula, String nombre, String apellido, String email, int telefono) {
+    public static void obtenerDatosRegistroCliente(int cedula, String nombre, String apellido, String email, int telefono, String inmuebles, String tipo) {
     	System.out.println("Datos del cliente para registro obtenidos!");
     	System.out.println(cedula);
     	System.out.println(nombre);
     	System.out.println(apellido);
     	System.out.println(email);
     	System.out.println(telefono);
+    	System.out.println(inmuebles);
+    	System.out.println(tipo);
     	
     	// TODO!!: Subirlo a MYSQL :)
     }
