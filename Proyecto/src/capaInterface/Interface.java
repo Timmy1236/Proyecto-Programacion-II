@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+import capaNegocios.Aplicacion;
+
 public class Interface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -100,6 +102,15 @@ public class Interface extends JFrame {
 		});
 		btnSalirAdministrativo.setBounds(460, 257, 89, 23);
 		panelAdministrativo.add(btnSalirAdministrativo);
+		
+		JButton btnNewButton = new JButton("Registrar Nuevo Cliente");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Aplicacion.abrirRegistrarClientes();
+			}
+		});
+		btnNewButton.setBounds(10, 11, 207, 23);
+		panelAdministrativo.add(btnNewButton);
 		tabbedPane.setEnabledAt(3, false);
 		
 		// Boton "Continuar" del panel "Iniciar Sesion"
