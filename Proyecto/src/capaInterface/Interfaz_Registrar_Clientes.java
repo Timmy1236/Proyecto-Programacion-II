@@ -38,7 +38,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		setTitle("Registrador de Clientes");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 306);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -143,7 +143,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 				// TODO!!: Validar los datos antes de pasarlo.
 				MisMetodosDB.obtenerDatosRegistroCliente(cedula, nombre, apellido, email, telefono, inmuebles, tipo);
 				
-				// Cerrar la ventana después de realizar la operación
+				// Cerramos la ventana
 		        dispose();
 			}
 		});
