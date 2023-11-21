@@ -78,6 +78,36 @@ public class Interface extends JFrame {
 		btnSalirCeo.setBounds(460, 257, 89, 23);
 		panelCeo.add(btnSalirCeo);
 		
+		JPanel panelRegistrar_2 = new JPanel();
+		panelRegistrar_2.setLayout(null);
+		panelRegistrar_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar_2.setBounds(10, 11, 200, 150);
+		panelCeo.add(panelRegistrar_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("Registrar");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(10, 11, 180, 23);
+		panelRegistrar_2.add(lblNewLabel_2);
+		
+		JButton btnRegistrarCliente_2 = new JButton("Nuevos Clientes");
+		btnRegistrarCliente_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarCliente();
+			}
+		});
+		btnRegistrarCliente_2.setBounds(20, 45, 160, 23);
+		panelRegistrar_2.add(btnRegistrarCliente_2);
+		
+		JButton btnRegistrarInmueble_2 = new JButton("Nuevos Inmuebles");
+		btnRegistrarInmueble_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarInmueble();
+			}
+		});
+		btnRegistrarInmueble_2.setBounds(20, 79, 160, 23);
+		panelRegistrar_2.add(btnRegistrarInmueble_2);
+		
 		JPanel panelGerente = new JPanel();
 		tabbedPane.addTab("Gerente", null, panelGerente, null);
 		tabbedPane.setEnabledAt(2, false);
@@ -95,6 +125,36 @@ public class Interface extends JFrame {
 		btnSalirGerente.setBounds(460, 257, 89, 23);
 		panelGerente.add(btnSalirGerente);
 		
+		JPanel panelRegistrar_1 = new JPanel();
+		panelRegistrar_1.setLayout(null);
+		panelRegistrar_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar_1.setBounds(10, 11, 200, 150);
+		panelGerente.add(panelRegistrar_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("Registrar");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(10, 11, 180, 23);
+		panelRegistrar_1.add(lblNewLabel_1);
+		
+		JButton btnRegistrarCliente_1 = new JButton("Nuevos Clientes");
+		btnRegistrarCliente_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarCliente();
+			}
+		});
+		btnRegistrarCliente_1.setBounds(20, 45, 160, 23);
+		panelRegistrar_1.add(btnRegistrarCliente_1);
+		
+		JButton btnRegistrarInmueble_1 = new JButton("Nuevos Inmuebles");
+		btnRegistrarInmueble_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarInmueble();
+			}
+		});
+		btnRegistrarInmueble_1.setBounds(20, 79, 160, 23);
+		panelRegistrar_1.add(btnRegistrarInmueble_1);
+		
 		JPanel panelAdministrativo = new JPanel();
 		tabbedPane.addTab("Administrativo", null, panelAdministrativo, null);
 		panelAdministrativo.setLayout(null);
@@ -111,33 +171,33 @@ public class Interface extends JFrame {
 		btnSalirAdministrativo.setBounds(460, 257, 89, 23);
 		panelAdministrativo.add(btnSalirAdministrativo);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 11, 200, 150);
-		panelAdministrativo.add(panel);
-		panel.setLayout(null);
+		JPanel panelRegistrar = new JPanel();
+		panelRegistrar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar.setBounds(10, 11, 200, 150);
+		panelAdministrativo.add(panelRegistrar);
+		panelRegistrar.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Registrar");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 11, 180, 23);
-		panel.add(lblNewLabel);
+		panelRegistrar.add(lblNewLabel);
 		
 		JButton btnRegistrarCliente = new JButton("Nuevos Clientes");
 		btnRegistrarCliente.setBounds(20, 45, 160, 23);
-		panel.add(btnRegistrarCliente);
+		panelRegistrar.add(btnRegistrarCliente);
 		
 		JButton btnRegistrarInmueble = new JButton("Nuevos Inmuebles");
 		btnRegistrarInmueble.setBounds(20, 79, 160, 23);
-		panel.add(btnRegistrarInmueble);
+		panelRegistrar.add(btnRegistrarInmueble);
 		btnRegistrarInmueble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Aplicacion.abrirRegistrarInmuebles();
+				registrarInmueble();
 			}
 		});
 		btnRegistrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Aplicacion.abrirRegistrarClientes();
+				registrarCliente();
 			}
 		});
 		tabbedPane.setEnabledAt(3, false);
@@ -174,5 +234,13 @@ public class Interface extends JFrame {
 		
 		btnContinuar.setBounds(227, 153, 89, 23);
 		panelIniciarSesion.add(btnContinuar);
+	}
+	
+	public static void registrarCliente() {
+		Aplicacion.abrirRegistrarClientes();
+	}
+	
+	public static void registrarInmueble() {
+		Aplicacion.abrirRegistrarInmuebles();
 	}
 }
