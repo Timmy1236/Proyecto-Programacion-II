@@ -19,38 +19,27 @@ import javax.swing.JSpinner;
 import java.awt.Component;
 import javax.swing.Box;
 
+import capaNegocios.MisMetodosDB;
+
 public class Interfaz_Registrar_Inmuebles extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNDePadron;
 	private JTextField textUbicacion;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Interfaz_Registrar_Inmuebles frame = new Interfaz_Registrar_Inmuebles();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField textTamano;
+	private JTextField textServicios;
+	private JTextField textTamañoHabitable;
+	private JTextField textValor;
 
 	/**
 	 * Create the frame.
 	 */
 	public Interfaz_Registrar_Inmuebles() {
+		setResizable(false);
+		setAlwaysOnTop(true);
 		setTitle("Registrador de Inmuebles");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -114,6 +103,15 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnContinuar.setBounds(170, 155, 200, 42);
 		panelInmueble.add(btnContinuar);
 		
+		JLabel lblValordolares = new JLabel("Valor (Dolares)");
+		lblValordolares.setBounds(32, 115, 127, 14);
+		panelInmueble.add(lblValordolares);
+		
+		textValor = new JTextField();
+		textValor.setColumns(10);
+		textValor.setBounds(169, 112, 200, 20);
+		panelInmueble.add(textValor);
+		
 		JPanel panelTipo = new JPanel();
 		tabbedPane.addTab("Tipo", null, panelTipo, null);
 		tabbedPane.setEnabledAt(1, false);
@@ -162,15 +160,15 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		lblServicios.setBounds(33, 84, 127, 14);
 		panelTerreno.add(lblServicios);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(170, 56, 200, 20);
-		panelTerreno.add(textField_2);
+		textTamano = new JTextField();
+		textTamano.setColumns(10);
+		textTamano.setBounds(170, 56, 200, 20);
+		panelTerreno.add(textTamano);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(170, 81, 200, 20);
-		panelTerreno.add(textField_3);
+		textServicios = new JTextField();
+		textServicios.setColumns(10);
+		textServicios.setBounds(170, 81, 200, 20);
+		panelTerreno.add(textServicios);
 		
 		JButton btnCancelar_1 = new JButton("Cancelar");
 		btnCancelar_1.addActionListener(new ActionListener() {
@@ -182,11 +180,6 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnCancelar_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCancelar_1.setBounds(170, 208, 200, 42);
 		panelTerreno.add(btnCancelar_1);
-		
-		JButton btnTerminar = new JButton("Terminar");
-		btnTerminar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnTerminar.setBounds(170, 155, 200, 42);
-		panelTerreno.add(btnTerminar);
 		
 		JPanel panelHabitable = new JPanel();
 		tabbedPane.addTab("Habitable", null, panelHabitable, null);
@@ -201,10 +194,10 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		lblTipo.setBounds(32, 39, 127, 14);
 		panelHabitable.add(lblTipo);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(169, 11, 200, 20);
-		panelHabitable.add(textField_4);
+		textTamañoHabitable = new JTextField();
+		textTamañoHabitable.setColumns(10);
+		textTamañoHabitable.setBounds(169, 11, 200, 20);
+		panelHabitable.add(textTamañoHabitable);
 		
 		JButton btnCancelar_1_1 = new JButton("Cancelar");
 		btnCancelar_1_1.addActionListener(new ActionListener() {
@@ -217,15 +210,10 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnCancelar_1_1.setBounds(209, 208, 190, 42);
 		panelHabitable.add(btnCancelar_1_1);
 		
-		JButton btnTerminar_1 = new JButton("Terminar");
-		btnTerminar_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnTerminar_1.setBounds(10, 208, 190, 42);
-		panelHabitable.add(btnTerminar_1);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Casa", "Departamento", "Mejoras"}));
-		comboBox.setBounds(169, 35, 200, 22);
-		panelHabitable.add(comboBox);
+		JComboBox tipoOpciones = new JComboBox();
+		tipoOpciones.setModel(new DefaultComboBoxModel(new String[] {"Casa", "Departamento", "Mejoras"}));
+		tipoOpciones.setBounds(169, 35, 200, 22);
+		panelHabitable.add(tipoOpciones);
 		
 		JLabel lblNewLabel = new JLabel("Cantidad de habitaciones cada uno");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
@@ -312,5 +300,59 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		JSpinner spinnerChurrasquera = new JSpinner();
 		spinnerChurrasquera.setBounds(369, 127, 30, 20);
 		panelHabitable.add(spinnerChurrasquera);
+		
+		// !!: Dejar los eventos/botones siempre debajo de todo para evitar errores ;)
+		
+		// Terreno
+		JButton btnTerminar = new JButton("Terminar");
+		btnTerminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Datos del primer tab (Inmueble)
+				int padron = Integer.parseInt(textNDePadron.getText());
+				String ubicacion = textUbicacion.getText();
+				int valor = Integer.parseInt(textValor.getText());
+				
+				// Datos del tab "Terreno"
+				int tamaño = Integer.parseInt(textTamano.getText());
+				String servicios = textServicios.getText();
+
+				MisMetodosDB.registrarTerreno(padron, ubicacion, valor, tamaño, servicios);
+			}
+		});
+		btnTerminar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnTerminar.setBounds(170, 155, 200, 42);
+		panelTerreno.add(btnTerminar);
+		
+		// Habitable
+		JButton btnTerminar_1 = new JButton("Terminar");
+		btnTerminar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Datos del primer tab (Inmueble)
+				int padron = Integer.parseInt(textNDePadron.getText());
+				String ubicacion = textUbicacion.getText();
+				int valor = Integer.parseInt(textValor.getText());
+				
+				// NOTE: ... Es enserio que tenemos que hacerlo de esta manera????? ¿¿¿¿No hay una forma mejor????
+				// Datos del tab "Habitable"
+				int tamaño = Integer.parseInt(textTamañoHabitable.getText());
+				String tipo = (String) tipoOpciones.getSelectedItem();
+				int cuartos = (int) spinnerCuartos.getValue();
+				int cocina = (int) spinnerCocina.getValue();
+				int comedor = (int) spinnerComedor.getValue();
+				int living = (int) spinnerLiving.getValue();
+				int hall = (int) spinnerHall.getValue();
+				int garaje = (int) spinnerGaraje.getValue();
+				int piscina = (int) spinnerPiscina.getValue();
+				int sauna = (int) spinnerSauna.getValue();
+				int barbacoa = (int) spinnerBarbacoa.getValue();
+				int churrasquera = (int) spinnerChurrasquera.getValue();
+				
+				//(int padron, String ubicacion, int valor, int tamaño, String tipo, int cuartos, int cocina, int comedor, int living, int hall, int garaje, int piscina, int sauna, int barbacoa)
+				MisMetodosDB.registrarHabitable(padron, ubicacion, valor, tamaño, tipo, cuartos, cocina, comedor, living, hall, garaje, piscina, sauna, barbacoa, churrasquera);
+			}
+		});
+		btnTerminar_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnTerminar_1.setBounds(10, 208, 190, 42);
+		panelHabitable.add(btnTerminar_1);
 	}
 }

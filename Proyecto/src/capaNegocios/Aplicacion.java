@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import capaNegocios.MisMetodosDB;
 import capaInterface.Interface;
 import capaInterface.Interfaz_Registrar_Clientes;
+import capaInterface.Interfaz_Registrar_Inmuebles;
 
 public class Aplicacion {
 
@@ -31,6 +32,11 @@ public class Aplicacion {
 	
 	public static void abrirRegistrarClientes() {
 		Interfaz_Registrar_Clientes frame = new Interfaz_Registrar_Clientes();
+		frame.setVisible(true);
+	}
+	
+	public static void abrirRegistrarInmuebles() {
+		Interfaz_Registrar_Inmuebles frame = new Interfaz_Registrar_Inmuebles();
 		frame.setVisible(true);
 	}
 }

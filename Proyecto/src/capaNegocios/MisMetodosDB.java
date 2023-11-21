@@ -41,4 +41,38 @@ public class MisMetodosDB {
     	
     	// TODO!!: Subirlo a MYSQL :)
     }
+    
+    public static void registrarTerreno(int padron, String ubicacion, int valor, int tamaño, String servicios) {
+    	System.out.println("Datos del terreno para registro obtenidos!");
+    	System.out.println(padron);
+    	System.out.println(ubicacion);
+    	System.out.println(valor);
+    	System.out.println(tamaño);
+    	System.out.println(servicios);
+
+    	// TODO!!: Subirlo a MySQL :)
+    }
+    
+    // NOTE: En estos momentos es cuando empiezo a cuestionar si realmente estoy haciendo algo bien o mal. -Ignacio Dortta
+    // LINK: https://64.media.tumblr.com/3e32356d10bae628c0c2fd67b628ba42/4bc7c01263fff131-29/s640x960/e2273e437891cd8aa526886bb00c97b9779d76a4.png
+    public static void registrarHabitable(int padron, String ubicacion, int valor, int tamaño, String tipo, int cuartos, int cocina, int comedor, int living, int hall, int garaje, int piscina, int sauna, int barbacoa, int churrasquera) {
+    	System.out.println("Datos del terreno para registro obtenidos!");
+    	System.out.println(padron);
+    	System.out.println(ubicacion);
+    	System.out.println(valor);
+    	System.out.println(tamaño);
+    	System.out.println(tipo);
+    	System.out.println(cuartos);
+    	System.out.println(cocina);
+    	System.out.println(comedor);
+    	System.out.println(living);
+    	System.out.println(hall);
+    	System.out.println(garaje);
+    	System.out.println(piscina);
+    	System.out.println(sauna);
+    	System.out.println(barbacoa);
+    	System.out.println(churrasquera);
+    	
+    	// TODO!!: Subirlo a MySQL :)
+    }
 }

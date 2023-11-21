@@ -10,6 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -17,16 +18,23 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import capaNegocios.Aplicacion;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Font;
 
 public class Interface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public Interface() {
+		setResizable(false);
+		setTitle("Inmobiliaria ITS");
+		// TODO: Cambiarlo por un logo mejor.
+		// Ponemos el logo de ITS a la aplicacion
+		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
+		setIconImage(logo.getImage());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 380);
 		contentPane = new JPanel();
@@ -103,14 +111,35 @@ public class Interface extends JFrame {
 		btnSalirAdministrativo.setBounds(460, 257, 89, 23);
 		panelAdministrativo.add(btnSalirAdministrativo);
 		
-		JButton btnNewButton = new JButton("Registrar Nuevo Cliente");
-		btnNewButton.addActionListener(new ActionListener() {
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(10, 11, 200, 150);
+		panelAdministrativo.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Registrar");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 11, 180, 23);
+		panel.add(lblNewLabel);
+		
+		JButton btnRegistrarCliente = new JButton("Nuevos Clientes");
+		btnRegistrarCliente.setBounds(20, 45, 160, 23);
+		panel.add(btnRegistrarCliente);
+		
+		JButton btnRegistrarInmueble = new JButton("Nuevos Inmuebles");
+		btnRegistrarInmueble.setBounds(20, 79, 160, 23);
+		panel.add(btnRegistrarInmueble);
+		btnRegistrarInmueble.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Aplicacion.abrirRegistrarInmuebles();
+			}
+		});
+		btnRegistrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Aplicacion.abrirRegistrarClientes();
 			}
 		});
-		btnNewButton.setBounds(10, 11, 207, 23);
-		panelAdministrativo.add(btnNewButton);
 		tabbedPane.setEnabledAt(3, false);
 		
 		// Boton "Continuar" del panel "Iniciar Sesion"
