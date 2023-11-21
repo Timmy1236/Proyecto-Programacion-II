@@ -28,18 +28,55 @@ public class MisMetodosDB {
 		}
 	}
 	
-	// NOTE: ESTO ES UN TEST, BORRARLO!!
-    public static void obtenerDatosRegistroCliente(int cedula, String nombre, String apellido, String email, int telefono, String inmuebles, String tipo) {
-    	System.out.println("Datos del cliente para registro obtenidos!");
-    	System.out.println(cedula);
-    	System.out.println(nombre);
-    	System.out.println(apellido);
-    	System.out.println(email);
-    	System.out.println(telefono);
-    	System.out.println(inmuebles);
-    	System.out.println(tipo);
-    	
-    	// TODO!!: Subirlo a MYSQL :)
+	// Método para subir datos del cliente a la tabla "clientes"
+    public static void subirDatosCliente(int Cedula, String Nombre, String Apellido, String fechaNacimiento, String Email, int Telefono, String Inmuebles, String Tipo) {
+        try {
+            // Cargar el driver
+            if (!cargarDriver()) {
+                System.out.println("Error al cargar el driver.");
+                return;
+            }
+
+            // Establecer la conexión
+            conectar = DriverManager.getConnection(url, usuario, pass);
+
+            // Consulta SQL para insertar datos en la tabla "clientes"
+            String consulta = "INSERT INTO Clientes (Cedula, Nombre, Apellido, FechaNacimiento, Email, Telefono, Inmueble, Tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Preparar la sentencia SQL con parámetros
+            PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
+            preparedStatement.setInt(1, Cedula);
+            preparedStatement.setString(2, Nombre);
+            preparedStatement.setString(3, Apellido);
+            preparedStatement.setString(4, fechaNacimiento);
+            preparedStatement.setString(5, Email);
+            preparedStatement.setInt(6, Telefono);
+            preparedStatement.setString(7, Inmuebles);
+            preparedStatement.setString(8, Tipo);
+
+            // Ejecutar la consulta
+            preparedStatement.executeUpdate();
+
+            System.out.println("Datos del cliente registrados en la tabla clientes.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión
+            try {
+                if (conectar != null) {
+                    conectar.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+	
+	// NOTE: ESTO ES UN TEST, MODIFICARLO!!
+    public static void obtenerDatosRegistroCliente(int cedula, String nombre, String apellido, String fechaNacimiento, String email, int telefono, String inmuebles, String tipo) {
+    	// Subimos los datos recibidos a MySQL
+    	subirDatosCliente(cedula, nombre, apellido, fechaNacimiento, email, telefono, inmuebles, tipo);
     }
     
     public static void registrarTerreno(int padron, String ubicacion, int valor, int tamaño, String servicios) {
@@ -53,7 +90,7 @@ public class MisMetodosDB {
     	// TODO!!: Subirlo a MySQL :)
     }
     
-    // NOTE: En estos momentos es cuando empiezo a cuestionar si realmente estoy haciendo algo bien o mal. -Ignacio Dortta
+    // NOTE: En estos momentos es cuando empiezo a cuestionar si realmente estoy haciendo algo bien o algo malo. -Ignacio Dortta
     // LINK: https://timmy1236.me/assets/images/huh.png
     public static void registrarHabitable(int padron, String ubicacion, int valor, int tamaño, String tipo, int cuartos, int cocina, int comedor, int living, int hall, int garaje, int piscina, int sauna, int barbacoa, int churrasquera) {
     	System.out.println("Datos del terreno para registro obtenidos!");
