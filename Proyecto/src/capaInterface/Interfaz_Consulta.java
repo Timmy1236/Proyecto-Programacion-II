@@ -78,8 +78,14 @@ public class Interfaz_Consulta extends JFrame {
 		btnConsultarHabitables.setBounds(328, 11, 149, 48);
 		contentPane.add(btnConsultarHabitables);
 		
-		JButton btnConsultarContratos = new JButton("Consultar Contratos");
-		btnConsultarContratos.setBounds(487, 11, 149, 48);
+		JButton btnConsultarContratos = new JButton("Salir");
+		btnConsultarContratos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Cerramos la ventana
+		        dispose();
+			}
+		});
+		btnConsultarContratos.setBounds(755, 11, 149, 48);
 		contentPane.add(btnConsultarContratos);
 	}
 }

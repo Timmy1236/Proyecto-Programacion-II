@@ -57,7 +57,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		panelInmueble.setLayout(null);
 		
 		JLabel lblNDePadron = new JLabel("N° de Padron");
-		lblNDePadron.setBounds(32, 52, 127, 14);
+		lblNDePadron.setBounds(32, 36, 127, 14);
 		panelInmueble.add(lblNDePadron);
 		
 		JLabel lblUbicacindepartamentoCalle = new JLabel("Ubicación");
@@ -66,7 +66,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		
 		textNDePadron = new JTextField();
 		textNDePadron.setColumns(10);
-		textNDePadron.setBounds(169, 49, 200, 20);
+		textNDePadron.setBounds(169, 33, 200, 20);
 		panelInmueble.add(textNDePadron);
 		
 		textUbicacion = new JTextField();
@@ -104,13 +104,19 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		panelInmueble.add(btnContinuar);
 		
 		JLabel lblValordolares = new JLabel("Valor (Dolares)");
-		lblValordolares.setBounds(32, 115, 127, 14);
+		lblValordolares.setBounds(32, 122, 127, 14);
 		panelInmueble.add(lblValordolares);
 		
 		textValor = new JTextField();
 		textValor.setColumns(10);
-		textValor.setBounds(169, 112, 200, 20);
+		textValor.setBounds(169, 119, 200, 20);
 		panelInmueble.add(textValor);
+		
+		JLabel lblNewLabel_2 = new JLabel("(01-01-0001-000)");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(179, 52, 176, 14);
+		panelInmueble.add(lblNewLabel_2);
 		
 		JPanel panelTipo = new JPanel();
 		tabbedPane.addTab("Tipo", null, panelTipo, null);
@@ -246,11 +252,11 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		panelHabitable.add(spinnerComedor);
 		
 		JLabel lblLiving = new JLabel("Living");
-		lblLiving.setBounds(10, 183, 65, 14);
+		lblLiving.setBounds(147, 183, 65, 14);
 		panelHabitable.add(lblLiving);
 		
 		JSpinner spinnerLiving = new JSpinner();
-		spinnerLiving.setBounds(85, 177, 30, 20);
+		spinnerLiving.setBounds(222, 177, 30, 20);
 		panelHabitable.add(spinnerLiving);
 		
 		JLabel lblHall = new JLabel("Hall");
@@ -308,7 +314,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnTerminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Datos del primer tab (Inmueble)
-				int padron = Integer.parseInt(textNDePadron.getText());
+				String padron = textNDePadron.getText();
 				String ubicacion = textUbicacion.getText();
 				int valor = Integer.parseInt(textValor.getText());
 				
@@ -323,12 +329,28 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnTerminar.setBounds(170, 155, 200, 42);
 		panelTerreno.add(btnTerminar);
 		
+		JLabel lblBaños = new JLabel("Baños");
+		lblBaños.setBounds(10, 183, 46, 14);
+		panelHabitable.add(lblBaños);
+		
+		JSpinner spinnerBaños = new JSpinner();
+		spinnerBaños.setBounds(85, 177, 30, 20);
+		panelHabitable.add(spinnerBaños);
+				
+		JLabel lblGimnasio = new JLabel("Gimnasio");
+		lblGimnasio.setBounds(278, 183, 46, 14);
+		panelHabitable.add(lblGimnasio);
+				
+		JSpinner spinnerGimnasio = new JSpinner();
+		spinnerGimnasio.setBounds(369, 180, 30, 20);
+		panelHabitable.add(spinnerGimnasio);
+		
 		// Habitable
 		JButton btnTerminar_1 = new JButton("Terminar");
 		btnTerminar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Datos del primer tab (Inmueble)
-				int padron = Integer.parseInt(textNDePadron.getText());
+				String padron = textNDePadron.getText();
 				String ubicacion = textUbicacion.getText();
 				int valor = Integer.parseInt(textValor.getText());
 				
@@ -339,6 +361,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 				int cuartos = (int) spinnerCuartos.getValue();
 				int cocina = (int) spinnerCocina.getValue();
 				int comedor = (int) spinnerComedor.getValue();
+				int baños = (int) spinnerBaños.getValue();
 				int living = (int) spinnerLiving.getValue();
 				int hall = (int) spinnerHall.getValue();
 				int garaje = (int) spinnerGaraje.getValue();
@@ -346,9 +369,9 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 				int sauna = (int) spinnerSauna.getValue();
 				int barbacoa = (int) spinnerBarbacoa.getValue();
 				int churrasquera = (int) spinnerChurrasquera.getValue();
-				
-				//(int padron, String ubicacion, int valor, int tamaño, String tipo, int cuartos, int cocina, int comedor, int living, int hall, int garaje, int piscina, int sauna, int barbacoa)
-				MisMetodosDB.registrarHabitable(padron, ubicacion, valor, tamaño, tipo, cuartos, cocina, comedor, living, hall, garaje, piscina, sauna, barbacoa, churrasquera);
+				int gimnasio = (int) spinnerGimnasio.getValue();
+					
+				MisMetodosDB.registrarHabitable(padron, ubicacion, valor, tamaño, tipo, cuartos, cocina, comedor, baños, living, hall, garaje, gimnasio, piscina, sauna, barbacoa, churrasquera);
 			}
 		});
 		btnTerminar_1.setFont(new Font("Tahoma", Font.PLAIN, 16));

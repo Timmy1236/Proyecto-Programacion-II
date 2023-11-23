@@ -172,7 +172,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 						String tipo = (String) comboBoxClienteTipo.getSelectedItem();
 						
 						// TODO!!: Validar los datos antes de pasarlo.
-						MisMetodosDB.obtenerDatosRegistroCliente(cedula, nombre, apellido, fechaNacimiento, email, telefono, inmuebles, tipo);
+						MisMetodosDB.registrarCliente(cedula, nombre, apellido, fechaNacimiento, email, telefono, inmuebles, tipo);
 						
 						// Cerramos la ventana
 				        dispose();

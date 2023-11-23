@@ -5,9 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JOptionPane;
 
 import capaNegocios.MisMetodosDB;
+
 import capaInterface.Interface;
 import capaInterface.Interfaz_Registrar_Clientes;
 import capaInterface.Interfaz_Registrar_Inmuebles;
+import capaInterface.Interfaz_Consulta;
 
 public class Aplicacion {
 
@@ -37,6 +39,11 @@ public class Aplicacion {
 	
 	public static void abrirRegistrarInmuebles() {
 		Interfaz_Registrar_Inmuebles frame = new Interfaz_Registrar_Inmuebles();
+		frame.setVisible(true);
+	}
+	
+	public static void abrirConsultaDeDatos() {
+		Interfaz_Consulta frame = new Interfaz_Consulta();
 		frame.setVisible(true);
 	}
 }

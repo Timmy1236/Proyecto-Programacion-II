@@ -173,23 +173,45 @@ public class Interface extends JFrame {
 		
 		JPanel panelRegistrar = new JPanel();
 		panelRegistrar.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelRegistrar.setBounds(10, 11, 200, 150);
+		panelRegistrar.setBounds(10, 11, 200, 100);
 		panelAdministrativo.add(panelRegistrar);
 		panelRegistrar.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Registrar");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 11, 180, 23);
+		lblNewLabel.setBounds(10, 0, 180, 23);
 		panelRegistrar.add(lblNewLabel);
 		
-		JButton btnRegistrarCliente = new JButton("Nuevos Clientes");
-		btnRegistrarCliente.setBounds(20, 45, 160, 23);
+		JButton btnRegistrarCliente = new JButton("Clientes");
+		btnRegistrarCliente.setBounds(20, 34, 160, 23);
 		panelRegistrar.add(btnRegistrarCliente);
 		
-		JButton btnRegistrarInmueble = new JButton("Nuevos Inmuebles");
-		btnRegistrarInmueble.setBounds(20, 79, 160, 23);
+		JButton btnRegistrarInmueble = new JButton("Inmuebles");
+		btnRegistrarInmueble.setBounds(20, 66, 160, 23);
 		panelRegistrar.add(btnRegistrarInmueble);
+		
+		JPanel panelConsultar = new JPanel();
+		panelConsultar.setLayout(null);
+		panelConsultar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelConsultar.setBounds(220, 11, 200, 100);
+		panelAdministrativo.add(panelConsultar);
+		
+		JLabel lblConsultar = new JLabel("Consultar");
+		lblConsultar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConsultar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblConsultar.setBounds(10, 0, 180, 23);
+		panelConsultar.add(lblConsultar);
+		
+		JButton btnClientesinmuebles = new JButton("Clientes/Inmuebles");
+		btnClientesinmuebles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultarDatos();
+			}
+		});
+		btnClientesinmuebles.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnClientesinmuebles.setBounds(20, 34, 160, 55);
+		panelConsultar.add(btnClientesinmuebles);
 		btnRegistrarInmueble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrarInmueble();
@@ -242,5 +264,9 @@ public class Interface extends JFrame {
 	
 	public static void registrarInmueble() {
 		Aplicacion.abrirRegistrarInmuebles();
+	}
+	
+	public static void consultarDatos() {
+		Aplicacion.abrirConsultaDeDatos();
 	}
 }
