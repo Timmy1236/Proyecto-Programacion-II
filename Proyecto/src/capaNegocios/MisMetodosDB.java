@@ -1,10 +1,17 @@
 package capaNegocios;
 
 import java.sql.SQLException;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Vector;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import java.sql.ResultSet;
 
 public class MisMetodosDB {
@@ -157,4 +164,75 @@ public class MisMetodosDB {
     	
     	// TODO!!: Subirlo a MySQL :)
     }
+    
+    
+    
+    /* Consultas */
+	public static JTable consultarClientes(JTable x, String sentencia, String opcion) {
+		
+		// Definir las columnas y nombres por defecto
+	    String[] columnas = { "Nombre", "Teléfono", "Apellido", "Fecha Nacimiento", "Email", "Telefono", "Inmueble", "Vendedor?" };
+
+	    switch (opcion) {
+	        case "Clientes": {
+	            columnas = new String[]{ "Nombre", "Teléfono", "Apellido", "Fecha Nacimiento", "Email", "Telefono", "Inmueble", "Vendedor?" };
+	            break;
+	        }
+	        case "Inmueble_Terreno": {
+	        	columnas = new String[]{ "Padron", "Ubicacion", "Valor", "Tamaño", "Servicios" };
+	            break;
+	        }
+	        case "Inmueble_Habitable": {
+	        	columnas = new String[]{ "Padron", "Ubicacion", "Valor", "Tamaño", "Tipo", "Baños", "Cuartos", "Cocina", "Comedor", "Living", "Hall", "Garaje", "Gimnasio", "Piscina", "Sauna", "Barbacoa", "Churrasquero" };
+	            break;
+	        }
+	        // TODO: Agregar el caso cuando es un contrato!
+	        default: {
+	            System.out.println("Error"); // Esto no deberia de pasar.
+	        }
+	    }
+	
+		// Declaro el modelo de la tabla
+		DefaultTableModel modeloMiTabla;
+
+		modeloMiTabla = new DefaultTableModel(null,columnas) {
+			// esta línea es requerida solo si la versión de java lo solicita
+			private static final long serialVersionUID = 1L;
+			// este método isCellEditable se utiliza para que la Table no sea editable
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		try {
+			conectar = DriverManager.getConnection(url, usuario, pass);
+			sentenciaSQL = conectar.createStatement();
+			resultado = sentenciaSQL.executeQuery(sentencia);
+			
+			// Agregamos la primera fila que describira que es cada columna
+			Vector<String> columnNames = new Vector<>();
+			for (String columna : columnas) {
+			    columnNames.add(columna);
+			}
+
+			modeloMiTabla.addRow(columnNames);
+	        
+			// Por cada fila que haya en la tabla, se creara una nueva fila en JTable y se añadira los datos del MySQL
+			while (resultado.next()) {
+				Object[] filas = new Object[columnas.length];
+				for (int i = 0; i < filas.length; i++) {
+					filas[i] = resultado.getObject(i + 1);
+				}
+				modeloMiTabla.addRow(filas);
+			}
+			
+			// Cierra la Base de Datos
+			conectar.close();
+			x.setModel(modeloMiTabla);
+			modeloMiTabla.removeTableModelListener(x);
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return x;
+	}
 }
