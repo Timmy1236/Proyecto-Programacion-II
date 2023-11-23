@@ -72,6 +72,49 @@ public class MisMetodosDB {
             }
         }
     }
+    
+ // Método para subir datos del cliente a la tabla "clientes"
+    public static void subirDatosTerreno(int Padron, String Ubicacion, int Valor, int Tamaño, String Servicios) {
+        try {
+            // Cargar el driver
+            if (!cargarDriver()) {
+                System.out.println("Error al cargar el driver.");
+                return;
+            }
+
+            // Establecer la conexión
+            conectar = DriverManager.getConnection(url, usuario, pass);
+
+            // Consulta SQL para insertar datos en la tabla "clientes"
+            String consulta = "INSERT INTO Inmueble_Terreno (Padron, Ubicacion, Valor, Tamaño, Servicios) VALUES (?, ?, ?, ?, ?)";
+
+            // Preparar la sentencia SQL con parámetros
+            PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
+            preparedStatement.setInt(1, Padron);
+            preparedStatement.setString(2, Ubicacion);
+            preparedStatement.setInt(3, Valor);
+            preparedStatement.setInt(4, Tamaño);
+            preparedStatement.setString(5, Servicios);
+
+            // Ejecutar la consulta
+            preparedStatement.executeUpdate();
+
+            System.out.println("Datos del cliente registrados en la tabla clientes.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión
+            try {
+                if (conectar != null) {
+                    conectar.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
 	
 	// NOTE: ESTO ES UN TEST, MODIFICARLO!!
     public static void obtenerDatosRegistroCliente(int cedula, String nombre, String apellido, String fechaNacimiento, String email, int telefono, String inmuebles, String tipo) {
@@ -86,6 +129,8 @@ public class MisMetodosDB {
     	System.out.println(valor);
     	System.out.println(tamaño);
     	System.out.println(servicios);
+    	
+    	subirDatosTerreno(padron, ubicacion, valor, tamaño, servicios);
 
     	// TODO!!: Subirlo a MySQL :)
     }
