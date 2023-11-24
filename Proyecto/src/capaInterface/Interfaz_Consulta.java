@@ -12,6 +12,7 @@ import capaNegocios.MisMetodosDB;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class Interfaz_Consulta extends JFrame {
 
@@ -19,26 +20,11 @@ public class Interfaz_Consulta extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Interfaz_Consulta frame = new Interfaz_Consulta();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	// Creamos la interfaz
 	public Interfaz_Consulta() {
+		setResizable(false);
+		setAlwaysOnTop(true);
+		setTitle("Consultar Datos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 930, 450);
 		contentPane = new JPanel();
@@ -47,14 +33,17 @@ public class Interfaz_Consulta extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 70, 894, 330);
+		contentPane.add(scrollPane);
+		
 		table = new JTable();
-		table.setBounds(10, 70, 894, 330);
-		contentPane.add(table);
+		scrollPane.setViewportView(table);
 		
 		JButton btnConsultarClientes = new JButton("Consultar Clientes");
 		btnConsultarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultarClientes(table, "SELECT * FROM Clientes;", "Clientes");
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Clientes;", "Clientes");
 			}
 		});
 		btnConsultarClientes.setBounds(10, 11, 149, 48);
@@ -63,7 +52,7 @@ public class Interfaz_Consulta extends JFrame {
 		JButton btnConsultarTerrenos = new JButton("Consultar Terrenos");
 		btnConsultarTerrenos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultarClientes(table, "SELECT * FROM Inmueble_Terreno;", "Inmueble_Terreno");
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble_Terreno;", "Inmueble_Terreno");
 			}
 		});
 		btnConsultarTerrenos.setBounds(169, 11, 149, 48);
@@ -72,7 +61,7 @@ public class Interfaz_Consulta extends JFrame {
 		JButton btnConsultarHabitables = new JButton("Consultar Habitables");
 		btnConsultarHabitables.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultarClientes(table, "SELECT * FROM Inmueble_Habitable;", "Inmueble_Habitable");
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble_Habitable;", "Inmueble_Habitable");
 			}
 		});
 		btnConsultarHabitables.setBounds(328, 11, 149, 48);
@@ -87,5 +76,14 @@ public class Interfaz_Consulta extends JFrame {
 		});
 		btnConsultarContratos.setBounds(755, 11, 149, 48);
 		contentPane.add(btnConsultarContratos);
+		
+		JButton btnConsultarContratos_1 = new JButton("Consultar Contratos");
+		btnConsultarContratos_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Contrato;", "Contrato");
+			}
+		});
+		btnConsultarContratos_1.setBounds(487, 11, 149, 48);
+		contentPane.add(btnConsultarContratos_1);
 	}
 }

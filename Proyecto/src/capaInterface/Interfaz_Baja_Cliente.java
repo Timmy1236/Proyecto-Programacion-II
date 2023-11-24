@@ -51,17 +51,17 @@ public class Interfaz_Baja_Cliente extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if (txtBorrarCliente.getText().isEmpty()) {
-					String sentencia="SELECT Cedula,Nombre,Apellido,FechaNacimiento,Email,Telefono,Inmueble,Tipo FROM Clientes where Cedula LIKE '"+e.getKeyChar()+"%';";
-					table=MisMetodosDB.cargarJTable(table, sentencia);
+					String sentencia="SELECT Cedula,NombreApellido,FechaNacimiento,Email,Telefono,Inmueble,Tipo FROM Clientes where Cedula LIKE '"+e.getKeyChar()+"%';";
+					table=MisMetodosDB.consultarClientes(table, sentencia);
 				}else {
 				// esto lo hace para cuando pulsamos el retroceso para borrar letras
 					if(e.getKeyChar()==8) {
-						String sentencia="SELECT Cedula,Nombre,Apellido,FechaNacimiento,Email,Telefono,Inmueble,Tipo FROM Clientes where Cedula LIKE '"+txtBorrarCliente.getText().substring(0, txtBorrarCliente.getText().length())+"%';";
-						table=MisMetodosDB.cargarJTable(table, sentencia);
+						String sentencia="SELECT Cedula,NombreApellido,FechaNacimiento,Email,Telefono,Inmueble,Tipo FROM Clientes where Cedula LIKE '"+txtBorrarCliente.getText().substring(0, txtBorrarCliente.getText().length())+"%';";
+						table=MisMetodosDB.consultarClientes(table, sentencia);
 					}else {
 						// esto lo hace para todas las letras del JtextField 
-						String sentencia="SELECT Cedula,Nombre,Apellido,FechaNacimiento,Email,Telefono,Inmueble,Tipo FROM Clientes where Cedula LIKE '"+txtBorrarCliente.getText()+e.getKeyChar()+"%';";
-						table=MisMetodosDB.cargarJTable(table, sentencia);
+						String sentencia="SELECT Cedula,NombreApellido,FechaNacimiento,Email,Telefono,Inmueble,Tipo FROM Clientes where Cedula LIKE '"+txtBorrarCliente.getText()+e.getKeyChar()+"%';";
+						table=MisMetodosDB.consultarClientes(table, sentencia);
 					}
 				}
 			}

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -37,7 +38,7 @@ public class MisMetodosDB {
 	}
 	
 	/* Registrar */
-    public static void subirDatosCliente(int Cedula, String Nombre, String Apellido, String fechaNacimiento, String Email, int Telefono, String Inmuebles, String Tipo) {
+    public static void subirDatosCliente(int Cedula, String NombreApellido, String fechaNacimiento, String Email, int Telefono, String Inmuebles, String Tipo) {
         try {
             // Cargar el driver
             if (!cargarDriver()) {
@@ -49,18 +50,17 @@ public class MisMetodosDB {
             conectar = DriverManager.getConnection(url, usuario, pass);
 
             // Consulta SQL para insertar datos en la tabla "clientes"
-            String consulta = "INSERT INTO Clientes (Cedula, Nombre, Apellido, FechaNacimiento, Email, Telefono, Inmueble, Tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String consulta = "INSERT INTO Clientes (Cedula, NombreApellido, FechaNacimiento, Email, Telefono, Inmueble, Tipo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             // Preparar la sentencia SQL con parámetros
             PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
             preparedStatement.setInt(1, Cedula);
-            preparedStatement.setString(2, Nombre);
-            preparedStatement.setString(3, Apellido);
-            preparedStatement.setString(4, fechaNacimiento);
-            preparedStatement.setString(5, Email);
-            preparedStatement.setInt(6, Telefono);
-            preparedStatement.setString(7, Inmuebles);
-            preparedStatement.setString(8, Tipo);
+            preparedStatement.setString(2, NombreApellido);
+            preparedStatement.setString(3, fechaNacimiento);
+            preparedStatement.setString(4, Email);
+            preparedStatement.setInt(5, Telefono);
+            preparedStatement.setString(6, Inmuebles);
+            preparedStatement.setString(7, Tipo);
 
             // Ejecutar la consulta
             preparedStatement.executeUpdate();
@@ -80,6 +80,94 @@ public class MisMetodosDB {
             }
         }
     }
+    /* Registrar */
+    public static void subirDatosContrato(int ContratoNumero, String Tipo, int Cedula, String PadronInmueble, String Descripcion, Date FechaInicio, Date FechaFinal, int PrecioPorMes, String TipoGarantia) {
+        try {
+            // Cargar el driver
+            if (!cargarDriver()) {
+                System.out.println("Error al cargar el driver.");
+                return;
+            }
+
+            // Establecer la conexión
+            conectar = DriverManager.getConnection(url, usuario, pass);
+
+            // Consulta SQL para insertar datos en la tabla "clientes"
+            String consulta = "INSERT INTO Contrato (ContratoNumero, Tipo, Cedula, PadronInmueble, Descripcion, FechaInicio, FechaFinal, PrecioPorMes, TipoGarantia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Preparar la sentencia SQL con parámetros
+            PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
+            preparedStatement.setInt(1, ContratoNumero);
+            preparedStatement.setString(2, Tipo);
+            preparedStatement.setInt(3, Cedula);
+            preparedStatement.setString(4, PadronInmueble);
+            preparedStatement.setString(5, Descripcion);
+            preparedStatement.setDate(6, FechaInicio);
+            preparedStatement.setDate(7, FechaFinal);
+            preparedStatement.setInt(8, PrecioPorMes);
+            preparedStatement.setString(9, TipoGarantia);
+
+            // Ejecutar la consulta
+            preparedStatement.executeUpdate();
+            
+            // Mostramos que se subieron los datos correctamente
+            JOptionPane.showMessageDialog(null, "El contrato fue registrado en el sistema.", "Registrando contrato", JOptionPane.PLAIN_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión
+            try {
+                if (conectar != null) {
+                    conectar.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public static void subirDatosContratoCompraVenta(int ContratoNumero, String Tipo, int Cedula, String PadronInmueble, String Descripcion, Date Fecha) {
+        try {
+            // Cargar el driver
+            if (!cargarDriver()) {
+                System.out.println("Error al cargar el driver.");
+                return;
+            }
+
+            // Establecer la conexión
+            conectar = DriverManager.getConnection(url, usuario, pass);
+
+            // Consulta SQL para insertar datos en la tabla "clientes"
+            String consulta = "INSERT INTO Contrato (ContratoNumero, Tipo, Cedula, PadronInmueble, Descripcion, Fecha) VALUES (?, ?, ?, ?, ?, ?)";
+            
+            // Preparar la sentencia SQL con parámetros
+            PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
+            preparedStatement.setInt(1, ContratoNumero);
+            preparedStatement.setString(2, Tipo);
+            preparedStatement.setInt(3, Cedula);
+            preparedStatement.setString(4, PadronInmueble);
+            preparedStatement.setString(5, Descripcion);
+            preparedStatement.setDate(6, Fecha);
+
+            // Ejecutar la consulta
+            preparedStatement.executeUpdate();
+            
+            // Mostramos que se subieron los datos correctamente
+            JOptionPane.showMessageDialog(null, "El contrato fue registrado en el sistema.", "Registrando contrato", JOptionPane.PLAIN_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión
+            try {
+                if (conectar != null) {
+                    conectar.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     public static void subirDatosTerreno(String Padron, String Ubicacion, int Valor, int Tamaño, String Servicios) {
         try {
             // Cargar el driver
@@ -174,10 +262,10 @@ public class MisMetodosDB {
     }
 	
     
-    public static void registrarCliente(int cedula, String nombre, String apellido, String fechaNacimiento, String email, int telefono, String inmuebles, String tipo) {
+    public static void registrarCliente(int cedula, String nombreApellido, String fechaNacimiento, String email, int telefono, String inmuebles, String tipo) {
     	// TODO: Validar(?
     	// Subimos los datos recibidos a MySQL
-    	subirDatosCliente(cedula, nombre, apellido, fechaNacimiento, email, telefono, inmuebles, tipo);
+    	subirDatosCliente(cedula, nombreApellido, fechaNacimiento, email, telefono, inmuebles, tipo);
     }
     
     public static void registrarTerreno(String padron, String ubicacion, int valor, int tamaño, String servicios) {
@@ -194,14 +282,14 @@ public class MisMetodosDB {
     
     
     /* Consultas */
-	public static JTable consultarClientes(JTable x, String sentencia, String opcion) {
+	public static JTable consultar(JTable x, String sentencia, String opcion) {
 		
 		// Definir las columnas y nombres por defecto
-	    String[] columnas = { "Nombre", "Teléfono", "Apellido", "Fecha Nacimiento", "Email", "Telefono", "Inmueble", "Vendedor?" };
+	    String[] columnas = { "Cedula", "NombreApellido", "FechaNacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
 
 	    switch (opcion) {
 	        case "Clientes": {
-	            columnas = new String[]{ "Nombre", "Teléfono", "Apellido", "Fecha Nacimiento", "Email", "Telefono", "Inmueble", "Vendedor?" };
+	            columnas = new String[]{ "Cedula", "NombreApellido", "FechaNacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
 	            break;
 	        }
 	        case "Inmueble_Terreno": {
@@ -211,6 +299,10 @@ public class MisMetodosDB {
 	        case "Inmueble_Habitable": {
 	        	columnas = new String[]{ "Padron", "Ubicacion", "Valor", "Tamaño", "Tipo", "Baños", "Cuartos", "Cocina", "Comedor", "Living", "Hall", "Garaje", "Gimnasio", "Piscina", "Sauna", "Barbacoa", "Churrasquero" };
 	            break;
+	        }
+	        case "Contrato": {
+	        	columnas = new String[]{ "NumeroContrato", "Tipo", "Cedula", "PadronTerreno", "PadronHabitable", "Fecha", "Fecha Inicio", "Fecha final", "Descripcion", "Precio x Mes", "Garantia" };
+	        	break;
 	        }
 	        // TODO: Agregar el caso cuando es un contrato!
 	        default: {
@@ -263,16 +355,16 @@ public class MisMetodosDB {
 	}
 	
 	// Método que permite cargar todas las JTable de la aplicación
-	public static JTable cargarJTable(JTable x, String sentencia) {
+	public static JTable consultarClientes(JTable x, String sentencia) {
 
 			// Declaro el modelo de la tabla
 			DefaultTableModel modeloMiTabla;
 
 			// cantidad de columnas de la JTABLE
-			String columnas[] = { "Nombre", "Teléfono", "Apellido", "Fecha Nacimiento", "Email", "Telefono", "Inmueble", "Vendedor?" };
+			String columnas[] = { "Cedula", "NombreApellido", "FechaNacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
 
 			// filas en las columnas con 3 datos
-			Object filas[] = new Object[8];
+			Object filas[] = new Object[7];
 
 			modeloMiTabla = new DefaultTableModel(null,columnas) {
 				// esta línea es requerida solo si la versión de java lo solicita
@@ -484,6 +576,98 @@ public class MisMetodosDB {
 						return x;
 					}
 	
+	// Método que buscara si ya existe el cliente
+	public static boolean existeCliente(int cedula) {
+		String sentencia = "SELECT * FROM Clientes where Cedula='"+cedula+"';";
+		boolean encontro = false;
+
+		try {
+
+			// realizar la conexion y abre la base de datos usando la url, el usuario y la
+			// contraseña.
+			conectar = DriverManager.getConnection(url, usuario, pass);
+
+			// crea la sentencia SQL
+			sentenciaSQL = conectar.createStatement();
+
+			// ejecuta la sentencia SQL y guarda el resultado de la consulta
+			resultado = sentenciaSQL.executeQuery(sentencia);
+
+			// para consultar el dato, si hay resultado es que el número ya fue registrado
+			if (resultado.next()) {
+				encontro = true;
+			}
+
+			// cierra la conexión
+			conectar.close();
+			} catch (SQLException e) {
+				// para verificar errores
+				System.out.println(e.getMessage());
+			}
+			return encontro;
+		}
+	
+	// Método que buscara si ya existe el cliente
+	public static boolean existeInmueble_habitable(String padron) {
+		String sentencia = "SELECT * FROM Inmueble_habitable where Padron='"+padron+"';";
+		boolean encontro = false;
+
+		try {
+
+			// realizar la conexion y abre la base de datos usando la url, el usuario y la
+			// contraseña.
+			conectar = DriverManager.getConnection(url, usuario, pass);
+
+			// crea la sentencia SQL
+			sentenciaSQL = conectar.createStatement();
+
+			// ejecuta la sentencia SQL y guarda el resultado de la consulta
+			resultado = sentenciaSQL.executeQuery(sentencia);
+
+			// para consultar el dato, si hay resultado es que el número ya fue registrado
+			if (resultado.next()) {
+				encontro = true;
+			}
+
+			// cierra la conexión
+			conectar.close();
+			} catch (SQLException e) {
+				// para verificar errores
+				System.out.println(e.getMessage());
+			}
+			return encontro;
+		}
+	
+	// Método que buscara si ya existe el cliente
+		public static boolean existeInmueble_terreno(String padron) {
+			String sentencia = "SELECT * FROM Inmueble_terreno where Padron='"+padron+"';";
+			boolean encontro = false;
+
+			try {
+
+				// realizar la conexion y abre la base de datos usando la url, el usuario y la
+				// contraseña.
+				conectar = DriverManager.getConnection(url, usuario, pass);
+
+				// crea la sentencia SQL
+				sentenciaSQL = conectar.createStatement();
+
+				// ejecuta la sentencia SQL y guarda el resultado de la consulta
+				resultado = sentenciaSQL.executeQuery(sentencia);
+
+				// para consultar el dato, si hay resultado es que el número ya fue registrado
+				if (resultado.next()) {
+					encontro = true;
+				}
+
+				// cierra la conexión
+				conectar.close();
+				} catch (SQLException e) {
+					// para verificar errores
+					System.out.println(e.getMessage());
+				}
+				return encontro;
+			}
 	
 	/* Bajas */
 	public static void darBajaCliente(int cedula) {

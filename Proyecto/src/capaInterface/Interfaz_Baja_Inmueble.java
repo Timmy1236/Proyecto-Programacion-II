@@ -34,22 +34,6 @@ public class Interfaz_Baja_Inmueble extends JFrame {
 	private JTextField textPadronHabitable;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Interfaz_Baja_Inmueble frame = new Interfaz_Baja_Inmueble();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public Interfaz_Baja_Inmueble() {
@@ -183,16 +167,16 @@ public class Interfaz_Baja_Inmueble extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if (textPadronTerreno.getText().isEmpty()) {
-					String sentencia="SELECT Padron,Ubicacion,Valor,Tamaño,Tipo,Baños,Cuartos,Cocina,Comedor,Living,Hall,Garaje,Gimnasio,Piscina,Sauna,Barbacoa,Churrasquera FROM Inmueble_Habitable where Padron LIKE '"+e.getKeyChar()+"%';";
+					String sentencia="SELECT Padron,Ubicacion,Valor,Tamaño,Tipo,Baños,Cuartos,Cocina,Comedor,Living,Hall,Garaje,Gimnasio,Piscina,Sauna,Barbacoa,Churrasquera FROM Inmueble_Habitable where Padron '"+e.getKeyChar()+"%'; LIKE UNION SELECT Padron, Ubicacion, Valor, Tamaño, Tipo, NULL AS Baños, NULL AS Cuartos, NULL AS Cocina, NULL AS Comedor, NULL AS Living, NULL AS Hall, NULL AS Garaje, NULL AS Gimnasio, NULL AS Piscina, NULL AS Sauna, NULL AS Barbacoa, NULL AS Churrasquera FROM Inmueble_TerrenoWHERE Padron LIKE '"+e.getKeyChar()+"%';";
 					tableTerreno=MisMetodosDB.cargarInmueblesHabitableTable(tableHabitable, sentencia);
 				}else {
 				// esto lo hace para cuando pulsamos el retroceso para borrar letras
 					if(e.getKeyChar()==8) {
-						String sentencia="SELECT Padron,Ubicacion,Valor,Tamaño,Tipo,Baños,Cuartos,Cocina,Comedor,Living,Hall,Garaje,Gimnasio,Piscina,Sauna,Barbacoa,Churrasquera FROM Inmueble_Habitable where Padron LIKE '"+textPadronTerreno.getText().substring(0, textPadronTerreno.getText().length())+"%';";
+						String sentencia="SELECT Padron,Ubicacion,Valor,Tamaño,Tipo,Baños,Cuartos,Cocina,Comedor,Living,Hall,Garaje,Gimnasio,Piscina,Sauna,Barbacoa,Churrasquera FROM Inmueble_Habitable where Padron '"+textPadronTerreno.getText().substring(0, textPadronTerreno.getText().length())+"%'; LIKE UNION SELECT Padron, Ubicacion, Valor, Tamaño, Tipo, NULL AS Baños, NULL AS Cuartos, NULL AS Cocina, NULL AS Comedor, NULL AS Living, NULL AS Hall, NULL AS Garaje, NULL AS Gimnasio, NULL AS Piscina, NULL AS Sauna, NULL AS Barbacoa, NULL AS Churrasquera FROM Inmueble_TerrenoWHERE Padron LIKE '"+textPadronTerreno.getText().substring(0, textPadronTerreno.getText().length())+"%';";
 						tableTerreno=MisMetodosDB.cargarInmueblesHabitableTable(tableHabitable, sentencia);
 					}else {
-						// esto lo hace para todas las letras del JtextField 
-						String sentencia="SELECT Padron,Ubicacion,Valor,Tamaño,Tipo,Baños,Cuartos,Cocina,Comedor,Living,Hall,Garaje,Gimnasio,Piscina,Sauna,Barbacoa,Churrasquera FROM Inmueble_Habitable where Padron LIKE '"+textPadronTerreno.getText()+e.getKeyChar()+"%';";
+						// esto lo hace para todas las letras del JtextField
+						String sentencia="SELECT Padron,Ubicacion,Valor,Tamaño,Tipo,Baños,Cuartos,Cocina,Comedor,Living,Hall,Garaje,Gimnasio,Piscina,Sauna,Barbacoa,Churrasquera FROM Inmueble_Habitable where Padron '"+textPadronTerreno.getText()+e.getKeyChar()+"%'; LIKE UNION SELECT Padron, Ubicacion, Valor, Tamaño, Tipo, NULL AS Baños, NULL AS Cuartos, NULL AS Cocina, NULL AS Comedor, NULL AS Living, NULL AS Hall, NULL AS Garaje, NULL AS Gimnasio, NULL AS Piscina, NULL AS Sauna, NULL AS Barbacoa, NULL AS Churrasquera FROM Inmueble_TerrenoWHERE Padron LIKE '"+textPadronTerreno.getText()+e.getKeyChar()+"%';";
 						tableTerreno=MisMetodosDB.cargarInmueblesHabitableTable(tableHabitable, sentencia);
 					}
 				}
