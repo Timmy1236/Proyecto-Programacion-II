@@ -30,8 +30,6 @@ public class Interface extends JFrame {
 	public Interface() {
 		setResizable(false);
 		setTitle("Inmobiliaria ITS");
-		// TODO: Cambiarlo por un logo mejor.
-		// Ponemos el logo de ITS a la aplicacion
 		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
 		setIconImage(logo.getImage());
 		
@@ -69,7 +67,6 @@ public class Interface extends JFrame {
 		JButton btnSalirCeo = new JButton("Desconectarse");
 		btnSalirCeo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO!!: Crear una funcion que permita hacer esto para cada boton, en vez de escribirlo en cada uno.
 				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
 		        tabbedPane.setSelectedIndex(0);
 		        tabbedPane.setEnabledAt(0, true);
@@ -91,6 +88,11 @@ public class Interface extends JFrame {
 		panelConsultar_2.add(lblConsultar_2);
 		
 		JButton btnClientesinmuebles_2 = new JButton("Clientes/Inmuebles");
+		btnClientesinmuebles_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultarDatos();
+			}
+		});
 		btnClientesinmuebles_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClientesinmuebles_2.setBounds(20, 34, 160, 55);
 		panelConsultar_2.add(btnClientesinmuebles_2);
@@ -146,28 +148,6 @@ public class Interface extends JFrame {
 		lblEliminar.setBounds(10, 0, 180, 23);
 		panelRegistrar_4.add(lblEliminar);
 		
-		JButton btnRegistrarCliente_3 = new JButton("Clientes");
-		btnRegistrarCliente_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				bajaCliente();
-			}
-		});
-		btnRegistrarCliente_3.setBounds(20, 34, 160, 23);
-		panelRegistrar_4.add(btnRegistrarCliente_3);
-		
-		JButton btnRegistrarInmueble_3 = new JButton("Inmuebles");
-		btnRegistrarInmueble_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				bajaInmueble();
-			}
-		});
-		btnRegistrarInmueble_3.setBounds(20, 66, 160, 23);
-		panelRegistrar_4.add(btnRegistrarInmueble_3);
-		
-		JButton btnContratos_4 = new JButton("Contratos");
-		btnContratos_4.setBounds(20, 100, 160, 23);
-		panelRegistrar_4.add(btnContratos_4);
-		
 		JPanel panelGerente = new JPanel();
 		tabbedPane.addTab("Gerente", null, panelGerente, null);
 		tabbedPane.setEnabledAt(2, false);
@@ -176,7 +156,6 @@ public class Interface extends JFrame {
 		JButton btnSalirGerente = new JButton("Desconectarse");
 		btnSalirGerente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO!!: Crear una funcion que permita hacer esto para cada boton, en vez de escribirlo en cada uno.
 				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
 		        tabbedPane.setSelectedIndex(0);
 		        tabbedPane.setEnabledAt(0, true);
@@ -248,7 +227,6 @@ public class Interface extends JFrame {
 		JButton btnSalirAdministrativo = new JButton("Desconectarse");
 		btnSalirAdministrativo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO!!: Crear una funcion que permita hacer esto para cada boton, en vez de escribirlo en cada uno.
 				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
 		        tabbedPane.setSelectedIndex(0);
 		        tabbedPane.setEnabledAt(0, true);
@@ -284,7 +262,7 @@ public class Interface extends JFrame {
 		JPanel panelConsultar = new JPanel();
 		panelConsultar.setLayout(null);
 		panelConsultar.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelConsultar.setBounds(220, 11, 200, 100);
+		panelConsultar.setBounds(220, 11, 200, 142);
 		panelAdministrativo.add(panelConsultar);
 		
 		JLabel lblConsultar = new JLabel("Consultar");
@@ -300,7 +278,7 @@ public class Interface extends JFrame {
 			}
 		});
 		btnClientesinmuebles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnClientesinmuebles.setBounds(20, 34, 160, 55);
+		btnClientesinmuebles.setBounds(20, 34, 160, 25);
 		panelConsultar.add(btnClientesinmuebles);
 		btnRegistrarInmueble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -362,13 +340,5 @@ public class Interface extends JFrame {
 	
 	public static void consultarDatos() {
 		Aplicacion.abrirConsultaDeDatos();
-	}
-	
-	public static void bajaCliente() {
-		Aplicacion.abrirBajaCliente();
-	}
-	
-	public static void bajaInmueble() {
-		Aplicacion.abrirBajaInmueble();
 	}
 }

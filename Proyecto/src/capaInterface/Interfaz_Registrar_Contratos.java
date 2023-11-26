@@ -176,8 +176,8 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		scrollPane.setBounds(176, 65, 200, 42);
 		panelCompraVenta.add(scrollPane);
 		
-		JTextArea textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
+		JTextArea textAreaCompraVenta = new JTextArea();
+		scrollPane.setViewportView(textAreaCompraVenta);
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(176, 25, 200, 20);
@@ -246,11 +246,11 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		btnListo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!Validaciones.vacio(textNumeroContrato) && !Validaciones.vacio(textCliente) && !Validaciones.vacio(textInmueble)) {
-					if (!MisMetodosDB.existeInmueble_habitable(textNumeroContrato.getText())) {
+					if (!MisMetodosDB.existeInmueble(textNumeroContrato.getText())) {
 						int numeroContrato = Integer.parseInt(textNumeroContrato.getText());
 						int cedulaCliente = Integer.parseInt(textCliente.getText());
 						String padronInmueble = textInmueble.getText();
-						String descripcion = textArea.getText();
+						String descripcion = textAreaCompraVenta.getText();
 				
 						Date dateRaw = dateChooser.getDate();
 						long time = dateRaw.getTime();
@@ -265,15 +265,22 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		btnListo.setBounds(10, 260, 200, 42);
 		panelCompraVenta.add(btnListo);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(177, 153, 173, 42);
+		panelAlquiler.add(scrollPane_1);
+		
+		JTextArea textAreaAlquiler = new JTextArea();
+		scrollPane_1.setViewportView(textAreaAlquiler);
+		
 		JButton btnListo_1 = new JButton("Listo");
 		btnListo_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!Validaciones.vacio(textNumeroContrato) && !Validaciones.vacio(textCliente) && !Validaciones.vacio(textInmueble)) {
-					if (!MisMetodosDB.existeInmueble_habitable(textNumeroContrato.getText())) {
+					if (!MisMetodosDB.existeInmueble(textNumeroContrato.getText())) {
 						int numeroContrato = Integer.parseInt(textNumeroContrato.getText());
 						int cedulaCliente = Integer.parseInt(textCliente.getText());
 						String padronInmueble = textInmueble.getText();
-						String descripcion = textArea.getText();
+						String descripcion = textAreaAlquiler.getText();
 						
 						Date dateInicioRaw = dateInicio.getDate();
 						long timeInicio = dateInicioRaw.getTime();
@@ -295,12 +302,5 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		btnListo_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListo_1.setBounds(10, 260, 200, 42);
 		panelAlquiler.add(btnListo_1);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(177, 153, 173, 42);
-		panelAlquiler.add(scrollPane_1);
-		
-		JTextArea textArea_1 = new JTextArea();
-		scrollPane_1.setViewportView(textArea_1);
 	}
 }

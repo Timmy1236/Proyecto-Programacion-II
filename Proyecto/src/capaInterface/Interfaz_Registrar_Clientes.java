@@ -195,7 +195,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 						
 								String tipo = (String) comboBoxClienteTipo.getSelectedItem();
 						
-								MisMetodosDB.registrarCliente(cedula, nombreApellido, fechaNacimiento, email, telefono, inmuebles, tipo);
+								MisMetodosDB.subirDatosCliente(cedula, nombreApellido, fechaNacimiento, email, telefono, inmuebles, tipo);
 						
 								// Cerramos la ventana
 								dispose();

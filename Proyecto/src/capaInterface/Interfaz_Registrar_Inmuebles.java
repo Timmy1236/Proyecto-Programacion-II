@@ -358,7 +358,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnTerminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!Validaciones.vacio(textNDePadron) && !Validaciones.vacio(textUbicacion) && !Validaciones.vacio(textValor) && !Validaciones.vacio(textTamano) && !Validaciones.vacio(textServicios)) {
-					if (!MisMetodosDB.existeInmueble_terreno(textNDePadron.getText())) {
+					if (!MisMetodosDB.existeInmueble(textNDePadron.getText())) {
 						// Datos del primer tab (Inmueble)
 						String padron = textNDePadron.getText();
 						String ubicacion = textUbicacion.getText();
@@ -368,7 +368,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 						int tamaño = Integer.parseInt(textTamano.getText());
 						String servicios = textServicios.getText();
 
-						MisMetodosDB.registrarTerreno(padron, ubicacion, valor, tamaño, servicios);
+						MisMetodosDB.subirDatosTerreno(padron, ubicacion, valor, tamaño, servicios, "Terreno");
 						
 						// Cerramos la ventana
 						dispose();
@@ -417,7 +417,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnTerminar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!Validaciones.vacio(textNDePadron) && !Validaciones.vacio(textUbicacion) && !Validaciones.vacio(textValor) && !Validaciones.vacio(textTamañoHabitable)) {
-					if (!MisMetodosDB.existeInmueble_habitable(textNDePadron.getText())) {
+					if (!MisMetodosDB.existeInmueble(textNDePadron.getText())) {
 						// Datos del primer tab (Inmueble)
 						String padron = textNDePadron.getText();
 						String ubicacion = textUbicacion.getText();
@@ -426,7 +426,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 						// NOTE: ... Es enserio que tenemos que hacerlo de esta manera????? ¿¿¿¿No hay una forma mejor????
 						// Datos del tab "Habitable"
 						int tamaño = Integer.parseInt(textTamañoHabitable.getText());
-						String tipo = (String) tipoOpciones.getSelectedItem();
+						String tipoHabitable = (String) tipoOpciones.getSelectedItem();
 						int cuartos = (int) spinnerCuartos.getValue();
 						int cocina = (int) spinnerCocina.getValue();
 						int comedor = (int) spinnerComedor.getValue();
@@ -440,7 +440,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 						int churrasquera = (int) spinnerChurrasquera.getValue();
 						int gimnasio = (int) spinnerGimnasio.getValue();
 					
-						MisMetodosDB.registrarHabitable(padron, ubicacion, valor, tamaño, tipo, cuartos, cocina, comedor, baños, living, hall, garaje, gimnasio, piscina, sauna, barbacoa, churrasquera);
+						MisMetodosDB.subirDatosHabitable(padron, ubicacion, valor, tamaño, "Habitable", tipoHabitable, cuartos, cocina, comedor, baños, living, hall, garaje, gimnasio, piscina, sauna, barbacoa, churrasquera);
 					
 						// Cerramos la ventana
 						dispose();

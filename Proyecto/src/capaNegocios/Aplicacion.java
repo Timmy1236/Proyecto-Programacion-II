@@ -11,8 +11,6 @@ import capaInterface.Interfaz_Registrar_Clientes;
 import capaInterface.Interfaz_Registrar_Inmuebles;
 import capaInterface.Interfaz_Registrar_Contratos;
 import capaInterface.Interfaz_Consulta;
-import capaInterface.Interfaz_Baja_Cliente;
-import capaInterface.Interfaz_Baja_Inmueble;
 
 public class Aplicacion {
 
@@ -52,16 +50,6 @@ public class Aplicacion {
 	
 	public static void abrirConsultaDeDatos() {
 		Interfaz_Consulta frame = new Interfaz_Consulta();
-		frame.setVisible(true);
-	}
-	
-	public static void abrirBajaCliente() {
-		Interfaz_Baja_Cliente frame = new Interfaz_Baja_Cliente();
-		frame.setVisible(true);
-	}
-	
-	public static void abrirBajaInmueble() {
-		Interfaz_Baja_Inmueble frame = new Interfaz_Baja_Inmueble();
 		frame.setVisible(true);
 	}
 }

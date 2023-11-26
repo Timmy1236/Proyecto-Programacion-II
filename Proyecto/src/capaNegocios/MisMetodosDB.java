@@ -80,7 +80,7 @@ public class MisMetodosDB {
             }
         }
     }
-    /* Registrar */
+    
     public static void subirDatosContrato(int ContratoNumero, String Tipo, int Cedula, String PadronInmueble, String Descripcion, Date FechaInicio, Date FechaFinal, int PrecioPorMes, String TipoGarantia) {
         try {
             // Cargar el driver
@@ -168,7 +168,7 @@ public class MisMetodosDB {
         }
     }
     
-    public static void subirDatosTerreno(String Padron, String Ubicacion, int Valor, int Tamaño, String Servicios) {
+    public static void subirDatosTerreno(String Padron, String Ubicacion, int Valor, int Tamaño, String Servicios, String Tipo) {
         try {
             // Cargar el driver
             if (!cargarDriver()) {
@@ -180,7 +180,7 @@ public class MisMetodosDB {
             conectar = DriverManager.getConnection(url, usuario, pass);
 
             // Consulta SQL para insertar datos en la tabla "clientes"
-            String consulta = "INSERT INTO Inmueble_Terreno (Padron, Ubicacion, Valor, Tamaño, Servicios) VALUES (?, ?, ?, ?, ?)";
+            String consulta = "INSERT INTO Inmueble (Padron, Ubicacion, Valor, Tamaño, Servicios, Tipo) VALUES (?, ?, ?, ?, ?)";
 
             // Preparar la sentencia SQL con parámetros
             PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
@@ -189,6 +189,7 @@ public class MisMetodosDB {
             preparedStatement.setInt(3, Valor);
             preparedStatement.setInt(4, Tamaño);
             preparedStatement.setString(5, Servicios);
+            preparedStatement.setString(6, Tipo);
 
             // Ejecutar la consulta
             preparedStatement.executeUpdate();
@@ -208,7 +209,8 @@ public class MisMetodosDB {
             }
         }
     }
-    public static void subirDatosHabitable(String Padron, String Ubicacion, int Valor, int Tamaño, String Tipo, int Cuartos, int Cocina, int Comedor, int Baños, int Living, int Hall, int Garaje, int Gimnasio, int Piscina, int Sauna, int Barbacoa, int Churrasquera) {
+    
+    public static void subirDatosHabitable(String Padron, String Ubicacion, int Valor, int Tamaño, String Tipo, String TipoHabitable, int Cuartos, int Cocina, int Comedor, int Baños, int Living, int Hall, int Garaje, int Gimnasio, int Piscina, int Sauna, int Barbacoa, int Churrasquera) {
         try {
             // Cargar el driver
             if (!cargarDriver()) {
@@ -220,7 +222,7 @@ public class MisMetodosDB {
             conectar = DriverManager.getConnection(url, usuario, pass);
 
             // Consulta SQL para insertar datos en la tabla "clientes"
-            String consulta = "INSERT INTO Inmueble_Habitable (Padron, Ubicacion, Valor, Tamaño, Tipo, Cuartos, Cocina, Comedor, Baños, Living, Hall, Garaje, Gimnasio, Piscina, Sauna, Barbacoa, Churrasquera) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String consulta = "INSERT INTO Inmueble (Padron, Ubicacion, Valor, Tamaño, Tipo, TipoHabitable, Cuartos, Cocina, Comedor, Baños, Living, Hall, Garaje, Gimnasio, Piscina, Sauna, Barbacoa, Churrasquera) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             // Preparar la sentencia SQL con parámetros
             PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
@@ -229,18 +231,19 @@ public class MisMetodosDB {
             preparedStatement.setInt(3, Valor);
             preparedStatement.setInt(4, Tamaño);
             preparedStatement.setString(5, Tipo);
-            preparedStatement.setInt(6, Cuartos);
-            preparedStatement.setInt(7, Cocina);
-            preparedStatement.setInt(8, Comedor);
-            preparedStatement.setInt(9, Baños);
-            preparedStatement.setInt(10, Living);
-            preparedStatement.setInt(11, Hall);
-            preparedStatement.setInt(12, Garaje);
-            preparedStatement.setInt(13, Gimnasio);
-            preparedStatement.setInt(14, Piscina);
-            preparedStatement.setInt(15, Sauna);
-            preparedStatement.setInt(16, Barbacoa);
-            preparedStatement.setInt(17, Churrasquera);
+            preparedStatement.setString(6, TipoHabitable);
+            preparedStatement.setInt(7, Cuartos);
+            preparedStatement.setInt(8, Cocina);
+            preparedStatement.setInt(9, Comedor);
+            preparedStatement.setInt(10, Baños);
+            preparedStatement.setInt(11, Living);
+            preparedStatement.setInt(12, Hall);
+            preparedStatement.setInt(13, Garaje);
+            preparedStatement.setInt(14, Gimnasio);
+            preparedStatement.setInt(15, Piscina);
+            preparedStatement.setInt(16, Sauna);
+            preparedStatement.setInt(17, Barbacoa);
+            preparedStatement.setInt(18, Churrasquera);
             
             // Ejecutar la consulta
             preparedStatement.executeUpdate();
@@ -260,36 +263,16 @@ public class MisMetodosDB {
             }
         }
     }
-	
-    
-    public static void registrarCliente(int cedula, String nombreApellido, String fechaNacimiento, String email, int telefono, String inmuebles, String tipo) {
-    	// TODO: Validar(?
-    	// Subimos los datos recibidos a MySQL
-    	subirDatosCliente(cedula, nombreApellido, fechaNacimiento, email, telefono, inmuebles, tipo);
-    }
-    
-    public static void registrarTerreno(String padron, String ubicacion, int valor, int tamaño, String servicios) {
-    	// TODO: Validar(?
-    	// Subimos los datos recibidos a MySQL
-    	subirDatosTerreno(padron, ubicacion, valor, tamaño, servicios);
-    }
-    
-    public static void registrarHabitable(String padron, String ubicacion, int valor, int tamaño, String tipo, int cuartos, int cocina, int comedor, int baños, int living, int hall, int garaje, int gimnasio, int piscina, int sauna, int barbacoa, int churrasquera) {
-    	// TODO: Validar(?
-    	// Subimos los datos recibidos a MySQL
-    	subirDatosHabitable(padron, ubicacion, valor, tamaño, tipo, cuartos, cocina, comedor, baños, living, hall, garaje, gimnasio, piscina, sauna, barbacoa, churrasquera);
-    }
+    /* Subir datos a MySQL */
     
     
     /* Consultas */
 	public static JTable consultar(JTable x, String sentencia, String opcion) {
-		
-		// Definir las columnas y nombres por defecto
-	    String[] columnas = { "Cedula", "NombreApellido", "FechaNacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
+	    String[] columnas = { "Columna" };
 
 	    switch (opcion) {
 	        case "Clientes": {
-	            columnas = new String[]{ "Cedula", "NombreApellido", "FechaNacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
+	            columnas = new String[]{ "Cedula", "Nombre Apellido", "Fecha Nacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
 	            break;
 	        }
 	        case "Inmueble_Terreno": {
@@ -301,10 +284,9 @@ public class MisMetodosDB {
 	            break;
 	        }
 	        case "Contrato": {
-	        	columnas = new String[]{ "NumeroContrato", "Tipo", "Cedula", "PadronTerreno", "PadronHabitable", "Fecha", "Fecha Inicio", "Fecha final", "Descripcion", "Precio x Mes", "Garantia" };
+	        	columnas = new String[]{ "Numero Contrato", "Tipo", "Cedula", "Padron", "Fecha", "Fecha Inicio", "Fecha final", "Duración", "Precio x Mes", "Garantia", "Descripción", "Autorización" };
 	        	break;
 	        }
-	        // TODO: Agregar el caso cuando es un contrato!
 	        default: {
 	            System.out.println("Error"); // Esto no deberia de pasar.
 	        }
@@ -332,7 +314,7 @@ public class MisMetodosDB {
 			    columnNames.add(columna);
 			}
 
-			modeloMiTabla.addRow(columnNames);
+			//modeloMiTabla.addRow(columnNames);
 	        
 			// Por cada fila que haya en la tabla, se creara una nueva fila en JTable y se añadira los datos del MySQL
 			while (resultado.next()) {
@@ -353,230 +335,9 @@ public class MisMetodosDB {
 		}
 		return x;
 	}
-	
-	// Método que permite cargar todas las JTable de la aplicación
-	public static JTable consultarClientes(JTable x, String sentencia) {
+	/* Consultas */
 
-			// Declaro el modelo de la tabla
-			DefaultTableModel modeloMiTabla;
-
-			// cantidad de columnas de la JTABLE
-			String columnas[] = { "Cedula", "NombreApellido", "FechaNacimiento", "Email", "Telefono", "Inmueble", "Tipo" };
-
-			// filas en las columnas con 3 datos
-			Object filas[] = new Object[7];
-
-			modeloMiTabla = new DefaultTableModel(null,columnas) {
-				// esta línea es requerida solo si la versión de java lo solicita
-				private static final long serialVersionUID = 1L;
-
-				// este método isCellEditable se utiliza para que la Table no sea editable
-				// que solo se utiliza para visualizar datos, si no se aplica los datos
-				// cuando se muestran son editables, no se cambian en la base de datos
-				// solo son editables en la ejecución de la aplicación
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				}
-
-			};
-
-			//modifica todo el encabezado de la siguiente manera
-
-			// cambia el tipo de letra del encabezado de la tabla
-
-			x.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 15));
-
-			// cambia el fondo del encabezado de la tabla
-
-			x.getTableHeader().setBackground(new Color(255, 204, 204));
-
-			// cambia el color de la letra del encabezado de la tabla
-
-			x.getTableHeader().setForeground(Color.BLACK);
-
-			try {
-
-				conectar = DriverManager.getConnection(url, usuario, pass);
-
-				sentenciaSQL = conectar.createStatement();
-
-				resultado = sentenciaSQL.executeQuery(sentencia);
-
-				while (resultado.next()) {
-
-					for (int i = 0; i < filas.length; i++) {
-
-						filas[i] = resultado.getObject(i + 1);
-
-					}
-
-					modeloMiTabla.addRow(filas);
-
-				}
-				// Cierra la Base de Datos
-
-				conectar.close();
-				x.setModel(modeloMiTabla);
-				modeloMiTabla.removeTableModelListener(x);
-
-			} catch (SQLException e) {
-				// TODO: handle exception
-				System.out.println(e.getMessage());
-			}
-
-			return x;
-		}
-
-	// Método que permite cargar todas las JTable de la aplicación
-	public static JTable cargarInmueblesTerrenoTable(JTable x, String sentencia) {
-
-				// Declaro el modelo de la tabla
-				DefaultTableModel modeloMiTabla;
-
-				// cantidad de columnas de la JTABLE
-				String columnas[] = { "Padron", "Ubicacion", "Valor", "Tamaño", "Servicios" };
-
-				// filas en las columnas con 3 datos
-				Object filas[] = new Object[5];
-
-				modeloMiTabla = new DefaultTableModel(null,columnas) {
-					// esta línea es requerida solo si la versión de java lo solicita
-					private static final long serialVersionUID = 1L;
-
-					// este método isCellEditable se utiliza para que la Table no sea editable
-					// que solo se utiliza para visualizar datos, si no se aplica los datos
-					// cuando se muestran son editables, no se cambian en la base de datos
-					// solo son editables en la ejecución de la aplicación
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						return false;
-					}
-
-				};
-
-				//modifica todo el encabezado de la siguiente manera
-
-				// cambia el tipo de letra del encabezado de la tabla
-
-				x.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 15));
-
-				// cambia el fondo del encabezado de la tabla
-
-				x.getTableHeader().setBackground(new Color(255, 204, 204));
-
-				// cambia el color de la letra del encabezado de la tabla
-
-				x.getTableHeader().setForeground(Color.BLACK);
-
-				try {
-
-					conectar = DriverManager.getConnection(url, usuario, pass);
-
-					sentenciaSQL = conectar.createStatement();
-
-					resultado = sentenciaSQL.executeQuery(sentencia);
-
-					while (resultado.next()) {
-
-						for (int i = 0; i < filas.length; i++) {
-
-							filas[i] = resultado.getObject(i + 1);
-
-						}
-
-						modeloMiTabla.addRow(filas);
-
-					}
-					// Cierra la Base de Datos
-
-					conectar.close();
-					x.setModel(modeloMiTabla);
-					modeloMiTabla.removeTableModelListener(x);
-
-				} catch (SQLException e) {
-					// TODO: handle exception
-					System.out.println(e.getMessage());
-				}
-
-				return x;
-			}
-
-	// Método que permite cargar todas las JTable de la aplicación
-	public static JTable cargarInmueblesHabitableTable(JTable x, String sentencia) {
-
-						// Declaro el modelo de la tabla
-						DefaultTableModel modeloMiTabla;
-
-						// cantidad de columnas de la JTABLE
-						String columnas[] = { "Padron", "Ubicacion", "Valor", "Tamaño", "Tipo", "Baños", "Cuartos", "Cocina", "Comedor", "Living", "Hall", "Garaje", "Gimnasio", "Piscina", "Sauna", "Barbacoa", "Churrasquero" };
-
-						// filas en las columnas con 3 datos
-						Object filas[] = new Object[17];
-
-						modeloMiTabla = new DefaultTableModel(null,columnas) {
-							// esta línea es requerida solo si la versión de java lo solicita
-							private static final long serialVersionUID = 1L;
-
-							// este método isCellEditable se utiliza para que la Table no sea editable
-							// que solo se utiliza para visualizar datos, si no se aplica los datos
-							// cuando se muestran son editables, no se cambian en la base de datos
-							// solo son editables en la ejecución de la aplicación
-							@Override
-							public boolean isCellEditable(int row, int column) {
-								return false;
-							}
-
-						};
-
-						//modifica todo el encabezado de la siguiente manera
-
-						// cambia el tipo de letra del encabezado de la tabla
-
-						x.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 15));
-
-						// cambia el fondo del encabezado de la tabla
-
-						x.getTableHeader().setBackground(new Color(255, 204, 204));
-
-						// cambia el color de la letra del encabezado de la tabla
-
-						x.getTableHeader().setForeground(Color.BLACK);
-
-						try {
-
-							conectar = DriverManager.getConnection(url, usuario, pass);
-
-							sentenciaSQL = conectar.createStatement();
-
-							resultado = sentenciaSQL.executeQuery(sentencia);
-
-							while (resultado.next()) {
-
-								for (int i = 0; i < filas.length; i++) {
-
-									filas[i] = resultado.getObject(i + 1);
-
-								}
-
-								modeloMiTabla.addRow(filas);
-
-							}
-							// Cierra la Base de Datos
-
-							conectar.close();
-							x.setModel(modeloMiTabla);
-							modeloMiTabla.removeTableModelListener(x);
-
-						} catch (SQLException e) {
-							// TODO: handle exception
-							System.out.println(e.getMessage());
-						}
-
-						return x;
-					}
-	
-	// Método que buscara si ya existe el cliente
+	// Este metodo nos servira para verificar si ya existe un cliente con esta cedula, así podemos evitar errores de claves primarias repetidas
 	public static boolean existeCliente(int cedula) {
 		String sentencia = "SELECT * FROM Clientes where Cedula='"+cedula+"';";
 		boolean encontro = false;
@@ -607,9 +368,9 @@ public class MisMetodosDB {
 			return encontro;
 		}
 	
-	// Método que buscara si ya existe el cliente
-	public static boolean existeInmueble_habitable(String padron) {
-		String sentencia = "SELECT * FROM Inmueble_habitable where Padron='"+padron+"';";
+	// Este metodo nos servira para verificar si ya existe un inmueble con ese padron, así podemos evitar errores de claves primarias repetidas
+	public static boolean existeInmueble(String padron) {
+		String sentencia = "SELECT * FROM Inmueble where Padron='"+padron+"';";
 		boolean encontro = false;
 
 		try {
@@ -638,39 +399,8 @@ public class MisMetodosDB {
 			return encontro;
 		}
 	
-	// Método que buscara si ya existe el cliente
-		public static boolean existeInmueble_terreno(String padron) {
-			String sentencia = "SELECT * FROM Inmueble_terreno where Padron='"+padron+"';";
-			boolean encontro = false;
-
-			try {
-
-				// realizar la conexion y abre la base de datos usando la url, el usuario y la
-				// contraseña.
-				conectar = DriverManager.getConnection(url, usuario, pass);
-
-				// crea la sentencia SQL
-				sentenciaSQL = conectar.createStatement();
-
-				// ejecuta la sentencia SQL y guarda el resultado de la consulta
-				resultado = sentenciaSQL.executeQuery(sentencia);
-
-				// para consultar el dato, si hay resultado es que el número ya fue registrado
-				if (resultado.next()) {
-					encontro = true;
-				}
-
-				// cierra la conexión
-				conectar.close();
-				} catch (SQLException e) {
-					// para verificar errores
-					System.out.println(e.getMessage());
-				}
-				return encontro;
-			}
-	
 	/* Bajas */
-	public static void darBajaCliente(int cedula) {
+	public static void darBaja(String key, String tabla, Object keyBuscar) {
 		try {
             // Cargar el driver
             if (!cargarDriver()) {
@@ -685,10 +415,9 @@ public class MisMetodosDB {
             Statement registro = conectar.createStatement();
 
             // Ejecutar la consulta
-            registro.executeUpdate("DELETE FROM Clientes WHERE Cedula='"+cedula+"'");
+            registro.executeUpdate("DELETE FROM "+tabla+" WHERE "+key+"='"+keyBuscar+"'");
 
-            JOptionPane.showMessageDialog(null, "El cliente fue borrado del sistema.", "Borrar Cliente", JOptionPane.PLAIN_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "El dato de la tabla "+tabla+" acaba de ser borrado correctamente del sistema.", "Dato borrado", JOptionPane.PLAIN_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -702,69 +431,4 @@ public class MisMetodosDB {
             }
         }
 	}
-	
-	public static void darBajaTerreno(String padron) {
-		try {
-            // Cargar el driver
-            if (!cargarDriver()) {
-                System.out.println("Error al cargar el driver.");
-                return;
-            }
-
-            // Establecer la conexión
-            conectar = DriverManager.getConnection(url, usuario, pass);
-
-            // Preparar la sentencia SQL con parámetros
-            Statement registro = conectar.createStatement();
-
-            // Ejecutar la consulta
-            registro.executeUpdate("DELETE FROM Inmueble_Terreno WHERE Padron='"+padron+"'");
-
-            JOptionPane.showMessageDialog(null, "El terreno fue borrado del sistema.", "Borrar Terreno", JOptionPane.PLAIN_MESSAGE);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Cerrar la conexión
-            try {
-                if (conectar != null) {
-                    conectar.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-	}
-	
-	public static void darBajaHabitable(String padron) {
-		try {
-            // Cargar el driver
-            if (!cargarDriver()) {
-                System.out.println("Error al cargar el driver.");
-                return;
-            }
-
-            // Establecer la conexión
-            conectar = DriverManager.getConnection(url, usuario, pass);
-
-            // Preparar la sentencia SQL con parámetros
-            Statement registro = conectar.createStatement();
-
-            // Ejecutar la consulta
-            registro.executeUpdate("DELETE FROM Inmueble_Habitable WHERE P='"+padron+"'");
-
-            JOptionPane.showMessageDialog(null, "El inmueble habitable fue borrado del sistema.", "Borrar Inmueble Habitable", JOptionPane.PLAIN_MESSAGE);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Cerrar la conexión
-            try {
-                if (conectar != null) {
-                    conectar.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-	}
-
 }

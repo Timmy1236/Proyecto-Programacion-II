@@ -3,10 +3,12 @@ package capaInterface;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import capaNegocios.MisMetodosDB;
 import javax.swing.JButton;
@@ -23,7 +25,6 @@ public class Interfaz_Consulta extends JFrame {
 	// Creamos la interfaz
 	public Interfaz_Consulta() {
 		setResizable(false);
-		setAlwaysOnTop(true);
 		setTitle("Consultar Datos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 930, 450);
@@ -34,7 +35,7 @@ public class Interfaz_Consulta extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 70, 894, 330);
+		scrollPane.setBounds(10, 70, 894, 296);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -52,20 +53,11 @@ public class Interfaz_Consulta extends JFrame {
 		JButton btnConsultarTerrenos = new JButton("Consultar Terrenos");
 		btnConsultarTerrenos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble_Terreno;", "Inmueble_Terreno");
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble;", "Inmueble_Habitable");
 			}
 		});
 		btnConsultarTerrenos.setBounds(169, 11, 149, 48);
 		contentPane.add(btnConsultarTerrenos);
-		
-		JButton btnConsultarHabitables = new JButton("Consultar Habitables");
-		btnConsultarHabitables.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble_Habitable;", "Inmueble_Habitable");
-			}
-		});
-		btnConsultarHabitables.setBounds(328, 11, 149, 48);
-		contentPane.add(btnConsultarHabitables);
 		
 		JButton btnConsultarContratos = new JButton("Salir");
 		btnConsultarContratos.addActionListener(new ActionListener() {
@@ -83,7 +75,69 @@ public class Interfaz_Consulta extends JFrame {
 				table = MisMetodosDB.consultar(table, "SELECT * FROM Contrato;", "Contrato");
 			}
 		});
-		btnConsultarContratos_1.setBounds(487, 11, 149, 48);
+		btnConsultarContratos_1.setBounds(328, 11, 149, 48);
 		contentPane.add(btnConsultarContratos_1);
+		
+		JButton brnConsultar = new JButton("Consultar");
+		brnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int filaSeleccionada = table.getSelectedRow();
+				String resultado = "";
+
+                for (int i = 0; i < table.getColumnCount(); i++) {
+                	TableColumnModel columnModel = table.getColumnModel();
+                    String nombreColumna = columnModel.getColumn(i).getHeaderValue().toString();
+                    Object dato = table.getValueAt(filaSeleccionada, i);
+
+                    // Agregar al resultado solo si el dato no es null
+                    if (dato != null) {
+                        resultado += nombreColumna + ": " + dato;
+
+                        // Agregar un salto de línea si no es la última columna
+                        if (i < table.getColumnCount() - 1) {
+                            resultado += "\n";
+                        }
+                    }
+                }
+
+                // Imprimir el resultado
+                System.out.println(resultado);
+                
+                JOptionPane.showMessageDialog(null, resultado, "Datos", JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		brnConsultar.setBounds(815, 377, 89, 23);
+		contentPane.add(brnConsultar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int filaSeleccionada = table.getSelectedRow();
+
+                TableColumnModel columnModel = table.getColumnModel();
+                String nombreColumna = columnModel.getColumn(0).getHeaderValue().toString();
+                Object dato = table.getValueAt(filaSeleccionada, 0);
+
+                // Utilizar switch para determinar la tabla según el nombre de la columna
+                String tabla = "";
+                switch (nombreColumna) {
+                    case "Numero Contrato":
+                        tabla = "Contrato";
+                        break;
+                    case "Padron":
+                        tabla = "Inmueble";
+                        break;
+                    case "Cedula":
+                    	tabla = "Clientes";
+                    	break;
+                    default:
+                    	JOptionPane.showMessageDialog(null, "Error, acaba de ocurrir un error mientras se intantaba borrar el dato.", "Error", JOptionPane.ERROR_MESSAGE);
+                    	break;
+                }
+                MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+			}
+		});
+		btnEliminar.setBounds(716, 377, 89, 23);
+		contentPane.add(btnEliminar);
 	}
 }
