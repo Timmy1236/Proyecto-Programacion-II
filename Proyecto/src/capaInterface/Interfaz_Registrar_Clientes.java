@@ -27,6 +27,7 @@ import java.util.Calendar;
 import capaDatos.Validaciones;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class Interfaz_Registrar_Clientes extends JFrame {
 
@@ -153,80 +154,67 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		textInmuebles.setBounds(177, 242, 200, 20);
 		contentPane.add(textInmuebles);
 		
-		JSpinner spinnerAño = new JSpinner();
-		spinnerAño.setModel(new SpinnerNumberModel(2000, 1901, 2155, 1));
-		spinnerAño.setBounds(177, 91, 54, 20);
-		contentPane.add(spinnerAño);
-		
-		JSpinner spinnerMes = new JSpinner();
-		spinnerMes.setModel(new SpinnerNumberModel(1, 1, 12, 1));
-		spinnerMes.setBounds(259, 91, 45, 20);
-		contentPane.add(spinnerMes);
-		
-		JSpinner spinnerDia = new JSpinner();
-		spinnerDia.setModel(new SpinnerNumberModel(1, 1, 31, 1));
-		spinnerDia.setBounds(332, 91, 45, 20);
-		contentPane.add(spinnerDia);
-		
 		JLabel lblAño = new JLabel("Fecha Nacimiento");
 		lblAño.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblAño.setBounds(40, 95, 127, 14);
 		contentPane.add(lblAño);
+				
+		JLabel lblNewLabel_1 = new JLabel("(55758216)");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1.setBounds(387, 14, 140, 14);
+		contentPane.add(lblNewLabel_1);
+				
+		JLabel lblNewLabel_1_4 = new JLabel("(nombre@gmail.com)");
+		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1_4.setBounds(387, 133, 140, 14);
+		contentPane.add(lblNewLabel_1_4);
+				
+		JLabel lblNewLabel_1_5 = new JLabel("(098729884)");
+		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1_5.setBounds(387, 167, 140, 14);
+		contentPane.add(lblNewLabel_1_5);
+				
+		JLabel lblNewLabel_1_7 = new JLabel("Seprar en comas (1, 2)");
+		lblNewLabel_1_7.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1_7.setBounds(387, 245, 140, 14);
+		contentPane.add(lblNewLabel_1_7);
+				
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(177, 91, 200, 20);
+		contentPane.add(dateChooser);
 		
 		// NOTE: Esto siempre que quede como ultimo en el codigo, para evitar errores :)
-				btnListo = new JButton("Listo");
-				btnListo.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (!Validaciones.vacio(textCedula) && !Validaciones.vacio(textTelefono) && !Validaciones.vacio(textNombre) && !Validaciones.vacio(textEmail) && !Validaciones.vacio(textInmuebles)) {
-							if (!MisMetodosDB.existeCliente(Integer.parseInt(textCedula.getText()))) {
-								// Agarramos todo los datos de la interfaz y lo pasamos en variable para pasarselo al metodo.
-								int cedula = Integer.parseInt(textCedula.getText());
-								int telefono = Integer.parseInt(textTelefono.getText());
+		btnListo = new JButton("Listo");
+		btnListo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!Validaciones.vacio(textCedula) && !Validaciones.vacio(textTelefono) && !Validaciones.vacio(textNombre) && !Validaciones.vacio(textEmail) && !Validaciones.vacio(textInmuebles)) {
+					if (!MisMetodosDB.existeCliente(Integer.parseInt(textCedula.getText()))) {
+						// Agarramos todo los datos de la interfaz y lo pasamos en variable para pasarselo al metodo.
+						int cedula = Integer.parseInt(textCedula.getText());
+						int telefono = Integer.parseInt(textTelefono.getText());
 						
-								int año = (int) spinnerAño.getValue();
-								int mes = (int) spinnerMes.getValue();
-								int dia = (int) spinnerDia.getValue();
+						Date dateRaw = dateChooser.getDate();
+						long time = dateRaw.getTime();
+						java.sql.Date fechaNacimiento = new java.sql.Date(time);
 						
-								String fechaNacimiento = año+"-"+mes+"-"+dia;
-								
-								String nombreApellido = textNombre.getText();
-								String email = textEmail.getText();
-								String inmuebles = textInmuebles.getText();
-						
-								String tipo = (String) comboBoxClienteTipo.getSelectedItem();
-						
-								MisMetodosDB.subirDatosCliente(cedula, nombreApellido, fechaNacimiento, email, telefono, inmuebles, tipo);
-						
-								// Cerramos la ventana
-								dispose();
-							} else {
-								JOptionPane.showMessageDialog(null, "Ya existe un cliente con esta cedula.", "Error, cliente duplicado", JOptionPane.PLAIN_MESSAGE);
-							}
-						}
+						String nombreApellido = textNombre.getText();
+						String email = textEmail.getText();
+						String inmuebles = textInmuebles.getText();
+				
+						String tipo = (String) comboBoxClienteTipo.getSelectedItem();
+				
+						MisMetodosDB.subirDatosCliente(cedula, nombreApellido, fechaNacimiento, email, telefono, inmuebles, tipo);
+				
+						// Cerramos la ventana
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Ya existe un cliente con esta cedula.", "Error, cliente duplicado", JOptionPane.PLAIN_MESSAGE);
 					}
-				});
-				btnListo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				btnListo.setBounds(10, 288, 200, 42);
-				contentPane.add(btnListo);
-				
-				JLabel lblNewLabel_1 = new JLabel("(55758216)");
-				lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
-				lblNewLabel_1.setBounds(387, 14, 140, 14);
-				contentPane.add(lblNewLabel_1);
-				
-				JLabel lblNewLabel_1_4 = new JLabel("(nombre@gmail.com)");
-				lblNewLabel_1_4.setFont(new Font("Tahoma", Font.ITALIC, 11));
-				lblNewLabel_1_4.setBounds(387, 133, 140, 14);
-				contentPane.add(lblNewLabel_1_4);
-				
-				JLabel lblNewLabel_1_5 = new JLabel("(098729884)");
-				lblNewLabel_1_5.setFont(new Font("Tahoma", Font.ITALIC, 11));
-				lblNewLabel_1_5.setBounds(387, 167, 140, 14);
-				contentPane.add(lblNewLabel_1_5);
-				
-				JLabel lblNewLabel_1_7 = new JLabel("Seprar en comas (1, 2)");
-				lblNewLabel_1_7.setFont(new Font("Tahoma", Font.ITALIC, 11));
-				lblNewLabel_1_7.setBounds(387, 245, 140, 14);
-				contentPane.add(lblNewLabel_1_7);
+				}
+			}
+		});
+		btnListo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnListo.setBounds(10, 288, 200, 42);
+		contentPane.add(btnListo);
 	}
 }

@@ -26,6 +26,8 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Interfaz_Registrar_Contratos extends JFrame {
 
@@ -64,6 +66,13 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		panelContrato.add(lblNDelContrato_2);
 		
 		textNumeroContrato = new JTextField();
+		textNumeroContrato.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Validamos si las teclas pulsada solamente sean numeros
+				Validaciones.validarInt(e);
+			}
+		});
 		textNumeroContrato.setColumns(10);
 		textNumeroContrato.setBounds(220, 24, 200, 20);
 		panelContrato.add(textNumeroContrato);
@@ -74,6 +83,16 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		panelContrato.add(lblClienteInvolucrado_2);
 		
 		textCliente = new JTextField();
+		textCliente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Validamos si las teclas pulsada solamente sean numeros
+				Validaciones.validarInt(e);
+				// Validamos que no haya mas de 8 caracteres
+				if (textCliente.getText().length() >= 8 ) 
+	                e.consume();
+			}
+		});
 		textCliente.setColumns(10);
 		textCliente.setBounds(220, 61, 200, 20);
 		panelContrato.add(textCliente);
@@ -195,7 +214,7 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		
 		JLabel lblDescripcin_1 = new JLabel("Descripción");
 		lblDescripcin_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDescripcin_1.setBounds(40, 167, 127, 14);
+		lblDescripcin_1.setBounds(40, 175, 127, 14);
 		panelAlquiler.add(lblDescripcin_1);
 		
 		JButton btnCancelar_1 = new JButton("Cancelar");
@@ -228,8 +247,15 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		panelAlquiler.add(lblNDelContrato_2_1);
 		
 		textPrecioPorMes = new JTextField();
+		textPrecioPorMes.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Validamos si las teclas pulsada solamente sean numeros
+				Validaciones.validarInt(e);
+			}
+		});
 		textPrecioPorMes.setColumns(10);
-		textPrecioPorMes.setBounds(177, 91, 173, 20);
+		textPrecioPorMes.setBounds(177, 91, 200, 20);
 		panelAlquiler.add(textPrecioPorMes);
 		
 		JLabel lblNDelContrato_2_1_1 = new JLabel("Garantia");
@@ -239,7 +265,7 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		
 		JComboBox comboGarantia = new JComboBox();
 		comboGarantia.setModel(new DefaultComboBoxModel(new String[] {"Anda", "Contaduria", "Depósito"}));
-		comboGarantia.setBounds(177, 122, 173, 20);
+		comboGarantia.setBounds(177, 122, 200, 20);
 		panelAlquiler.add(comboGarantia);
 		
 		JButton btnListo = new JButton("Listo");
@@ -266,7 +292,7 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		panelCompraVenta.add(btnListo);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(177, 153, 173, 42);
+		scrollPane_1.setBounds(177, 153, 200, 53);
 		panelAlquiler.add(scrollPane_1);
 		
 		JTextArea textAreaAlquiler = new JTextArea();
@@ -295,6 +321,8 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 						String garantia = (String) comboGarantia.getSelectedItem();
 						
 						MisMetodosDB.subirDatosContrato(numeroContrato, "Alquila", cedulaCliente, padronInmueble, descripcion, fechaInicio, fechaFinal, precio, garantia);
+						
+						dispose();
 					}
 				}
 			}

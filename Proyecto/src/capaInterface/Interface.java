@@ -21,6 +21,9 @@ import capaNegocios.Aplicacion;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.border.EtchedBorder;
+import javax.swing.UIManager;
+import javax.swing.JTextArea;
 
 public class Interface extends JFrame {
 
@@ -41,72 +44,32 @@ public class Interface extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// Esta imagen serivra para los perfiles de los roles
+		ImageIcon userProfile = new ImageIcon(getClass().getClassLoader().getResource("user.png"));
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 584, 341);
+		tabbedPane.setBounds(0, -26, 584, 367);
 		contentPane.add(tabbedPane);
 		
 		JPanel panelIniciarSesion = new JPanel();
 		tabbedPane.addTab("Iniciar sesión", null, panelIniciarSesion, null);
 		panelIniciarSesion.setLayout(null);
 		
-		JComboBox usuarioOpciones = new JComboBox();
-		usuarioOpciones.setModel(new DefaultComboBoxModel(new String[] {"Ceo", "Gerente", "Administrativo"}));
-		usuarioOpciones.setBounds(194, 120, 145, 22);
-		panelIniciarSesion.add(usuarioOpciones);
-		
-		JLabel lblSeleccioneRol = new JLabel("Por favor, seleccione su rol");
-		lblSeleccioneRol.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccioneRol.setBounds(149, 95, 238, 14);
-		panelIniciarSesion.add(lblSeleccioneRol);
-		
 		JPanel panelCeo = new JPanel();
 		tabbedPane.addTab("Ceo", null, panelCeo, null);
 		tabbedPane.setEnabledAt(1, false);
 		panelCeo.setLayout(null);
 		
-		JButton btnSalirCeo = new JButton("Desconectarse");
-		btnSalirCeo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
-		        tabbedPane.setSelectedIndex(0);
-		        tabbedPane.setEnabledAt(0, true);
-			}
-		});
-		btnSalirCeo.setBounds(460, 257, 109, 45);
-		panelCeo.add(btnSalirCeo);
-		
-		JPanel panelConsultar_2 = new JPanel();
-		panelConsultar_2.setLayout(null);
-		panelConsultar_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelConsultar_2.setBounds(220, 11, 200, 100);
-		panelCeo.add(panelConsultar_2);
-		
-		JLabel lblConsultar_2 = new JLabel("Consultar");
-		lblConsultar_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConsultar_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblConsultar_2.setBounds(10, 0, 180, 23);
-		panelConsultar_2.add(lblConsultar_2);
-		
-		JButton btnClientesinmuebles_2 = new JButton("Clientes/Inmuebles");
-		btnClientesinmuebles_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultarDatos();
-			}
-		});
-		btnClientesinmuebles_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnClientesinmuebles_2.setBounds(20, 34, 160, 55);
-		panelConsultar_2.add(btnClientesinmuebles_2);
-		
 		JPanel panelRegistrar_2 = new JPanel();
 		panelRegistrar_2.setLayout(null);
 		panelRegistrar_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelRegistrar_2.setBounds(10, 11, 200, 142);
+		panelRegistrar_2.setBounds(10, 82, 559, 110);
 		panelCeo.add(panelRegistrar_2);
 		
 		JLabel lblNewLabel_2 = new JLabel("Registrar");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(10, 0, 180, 23);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblNewLabel_2.setBounds(10, 11, 539, 28);
 		panelRegistrar_2.add(lblNewLabel_2);
 		
 		JButton btnRegistrarCliente_2 = new JButton("Clientes");
@@ -115,7 +78,8 @@ public class Interface extends JFrame {
 				registrarCliente();
 			}
 		});
-		btnRegistrarCliente_2.setBounds(20, 34, 160, 23);
+		btnRegistrarCliente_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRegistrarCliente_2.setBounds(20, 50, 160, 50);
 		panelRegistrar_2.add(btnRegistrarCliente_2);
 		
 		JButton btnRegistrarInmueble_2 = new JButton("Inmuebles");
@@ -124,7 +88,8 @@ public class Interface extends JFrame {
 				registrarInmueble();
 			}
 		});
-		btnRegistrarInmueble_2.setBounds(20, 66, 160, 23);
+		btnRegistrarInmueble_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRegistrarInmueble_2.setBounds(205, 50, 160, 50);
 		panelRegistrar_2.add(btnRegistrarInmueble_2);
 		
 		JButton btnContratos_2 = new JButton("Contratos");
@@ -133,64 +98,113 @@ public class Interface extends JFrame {
 				registrarContrato();
 			}
 		});
-		btnContratos_2.setBounds(20, 100, 160, 23);
+		btnContratos_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnContratos_2.setBounds(389, 50, 160, 50);
 		panelRegistrar_2.add(btnContratos_2);
 		
-		JPanel panelRegistrar_4 = new JPanel();
-		panelRegistrar_4.setLayout(null);
-		panelRegistrar_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelRegistrar_4.setBounds(10, 160, 200, 142);
-		panelCeo.add(panelRegistrar_4);
+		JPanel panel_1_2 = new JPanel();
+		panel_1_2.setLayout(null);
+		panel_1_2.setBorder(UIManager.getBorder("DesktopIcon.border"));
+		panel_1_2.setBounds(10, 11, 559, 60);
+		panelCeo.add(panel_1_2);
 		
-		JLabel lblEliminar = new JLabel("Eliminar");
-		lblEliminar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEliminar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblEliminar.setBounds(10, 0, 180, 23);
-		panelRegistrar_4.add(lblEliminar);
+		JLabel lblCeo = new JLabel("CEO");
+		lblCeo.setIcon(userProfile);
+		lblCeo.setBounds(10, 11, 200, 38);
+		panel_1_2.add(lblCeo);
 		
-		JPanel panelGerente = new JPanel();
-		tabbedPane.addTab("Gerente", null, panelGerente, null);
-		tabbedPane.setEnabledAt(2, false);
-		panelGerente.setLayout(null);
-		
-		JButton btnSalirGerente = new JButton("Desconectarse");
-		btnSalirGerente.addActionListener(new ActionListener() {
+		JButton btnSalirAdministrativo_2 = new JButton("Desconectarse");
+		btnSalirAdministrativo_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
 		        tabbedPane.setSelectedIndex(0);
 		        tabbedPane.setEnabledAt(0, true);
 			}
 		});
-		btnSalirGerente.setBounds(460, 257, 109, 45);
-		panelGerente.add(btnSalirGerente);
+		btnSalirAdministrativo_2.setBounds(423, 8, 126, 45);
+		panel_1_2.add(btnSalirAdministrativo_2);
 		
-		JPanel panelConsultar_1 = new JPanel();
-		panelConsultar_1.setLayout(null);
-		panelConsultar_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelConsultar_1.setBounds(220, 11, 200, 100);
-		panelGerente.add(panelConsultar_1);
+		JPanel panelRegistrar_3_1_1 = new JPanel();
+		panelRegistrar_3_1_1.setLayout(null);
+		panelRegistrar_3_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar_3_1_1.setBounds(10, 218, 559, 110);
+		panelCeo.add(panelRegistrar_3_1_1);
 		
-		JLabel lblConsultar_1 = new JLabel("Consultar");
-		lblConsultar_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConsultar_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblConsultar_1.setBounds(10, 0, 180, 23);
-		panelConsultar_1.add(lblConsultar_1);
+		JLabel lblConsultarEliminarAutorizar_1 = new JLabel("Consultar eliminar autorizar y editar");
+		lblConsultarEliminarAutorizar_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConsultarEliminarAutorizar_1.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblConsultarEliminarAutorizar_1.setBounds(10, 11, 539, 28);
+		panelRegistrar_3_1_1.add(lblConsultarEliminarAutorizar_1);
 		
-		JButton btnClientesinmuebles_1 = new JButton("Clientes/Inmuebles");
-		btnClientesinmuebles_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnClientesinmuebles_1.setBounds(20, 34, 160, 55);
-		panelConsultar_1.add(btnClientesinmuebles_1);
+		JButton btnDatos_1 = new JButton("Datos");
+		btnDatos_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultarDatos();
+			}
+		});
+		btnDatos_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDatos_1.setBounds(205, 49, 160, 50);
+		panelRegistrar_3_1_1.add(btnDatos_1);
+		
+		JPanel panelGerente = new JPanel();
+		tabbedPane.addTab("Gerente", null, panelGerente, null);
+		tabbedPane.setEnabledAt(2, false);
+		panelGerente.setLayout(null);
+		
+		JPanel panelRegistrar_3_1 = new JPanel();
+		panelRegistrar_3_1.setLayout(null);
+		panelRegistrar_3_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar_3_1.setBounds(10, 218, 559, 110);
+		panelGerente.add(panelRegistrar_3_1);
+		
+		JLabel lblConsultarEliminarAutorizar = new JLabel("Consultar eliminar autorizar y editar");
+		lblConsultarEliminarAutorizar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConsultarEliminarAutorizar.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblConsultarEliminarAutorizar.setBounds(10, 11, 539, 28);
+		panelRegistrar_3_1.add(lblConsultarEliminarAutorizar);
+		
+		JButton btnDatos = new JButton("Datos");
+		btnDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultarDatos();
+			}
+		});
+		btnDatos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDatos.setBounds(205, 49, 160, 50);
+		panelRegistrar_3_1.add(btnDatos);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setLayout(null);
+		panel_1_1.setBorder(UIManager.getBorder("DesktopIcon.border"));
+		panel_1_1.setBounds(10, 11, 559, 60);
+		panelGerente.add(panel_1_1);
+		
+		JLabel lblGerente = new JLabel("Gerente");
+		lblGerente.setIcon(userProfile);
+		lblGerente.setBounds(10, 11, 200, 38);
+		panel_1_1.add(lblGerente);
+		
+		JButton btnSalirAdministrativo_1 = new JButton("Desconectarse");
+		btnSalirAdministrativo_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
+		        tabbedPane.setSelectedIndex(0);
+		        tabbedPane.setEnabledAt(0, true);
+			}
+		});
+		btnSalirAdministrativo_1.setBounds(423, 8, 126, 45);
+		panel_1_1.add(btnSalirAdministrativo_1);
 		
 		JPanel panelRegistrar_1 = new JPanel();
 		panelRegistrar_1.setLayout(null);
 		panelRegistrar_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelRegistrar_1.setBounds(10, 11, 200, 142);
+		panelRegistrar_1.setBounds(10, 82, 559, 110);
 		panelGerente.add(panelRegistrar_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("Registrar");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(10, 0, 180, 23);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblNewLabel_1.setBounds(10, 11, 539, 28);
 		panelRegistrar_1.add(lblNewLabel_1);
 		
 		JButton btnRegistrarCliente_1 = new JButton("Clientes");
@@ -199,7 +213,8 @@ public class Interface extends JFrame {
 				registrarCliente();
 			}
 		});
-		btnRegistrarCliente_1.setBounds(20, 34, 160, 23);
+		btnRegistrarCliente_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRegistrarCliente_1.setBounds(20, 50, 160, 50);
 		panelRegistrar_1.add(btnRegistrarCliente_1);
 		
 		JButton btnRegistrarInmueble_1 = new JButton("Inmuebles");
@@ -208,7 +223,8 @@ public class Interface extends JFrame {
 				registrarInmueble();
 			}
 		});
-		btnRegistrarInmueble_1.setBounds(20, 66, 160, 23);
+		btnRegistrarInmueble_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRegistrarInmueble_1.setBounds(205, 50, 160, 50);
 		panelRegistrar_1.add(btnRegistrarInmueble_1);
 		
 		JButton btnContratos_1 = new JButton("Contratos");
@@ -217,14 +233,92 @@ public class Interface extends JFrame {
 				registrarContrato();
 			}
 		});
-		btnContratos_1.setBounds(20, 100, 160, 23);
+		btnContratos_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnContratos_1.setBounds(389, 50, 160, 50);
 		panelRegistrar_1.add(btnContratos_1);
 		
 		JPanel panelAdministrativo = new JPanel();
 		tabbedPane.addTab("Administrativo", null, panelAdministrativo, null);
 		panelAdministrativo.setLayout(null);
 		
+		JPanel panelRegistrar = new JPanel();
+		panelRegistrar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar.setBounds(10, 82, 559, 110);
+		panelAdministrativo.add(panelRegistrar);
+		panelRegistrar.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Registrar");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 11, 539, 28);
+		panelRegistrar.add(lblNewLabel);
+		
+		JButton btnRegistrarCliente = new JButton("Clientes");
+		btnRegistrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRegistrarCliente.setBounds(20, 50, 160, 50);
+		panelRegistrar.add(btnRegistrarCliente);
+		
+		JButton btnRegistrarInmueble = new JButton("Inmuebles");
+		btnRegistrarInmueble.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRegistrarInmueble.setBounds(205, 50, 160, 50);
+		panelRegistrar.add(btnRegistrarInmueble);
+		
+		JButton btnContratos = new JButton("Contratos");
+		btnContratos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarContrato();
+			}
+		});
+		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnContratos.setBounds(389, 50, 160, 50);
+		panelRegistrar.add(btnContratos);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(UIManager.getBorder("DesktopIcon.border"));
+		panel_1.setBounds(10, 11, 559, 60);
+		panelAdministrativo.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblUserAdministrativo = new JLabel("Administrativo");
+		lblUserAdministrativo.setIcon(userProfile);
+		lblUserAdministrativo.setBounds(10, 11, 200, 38);
+		panel_1.add(lblUserAdministrativo);
+		
 		JButton btnSalirAdministrativo = new JButton("Desconectarse");
+		btnSalirAdministrativo.setBounds(423, 8, 126, 45);
+		panel_1.add(btnSalirAdministrativo);
+		
+		JPanel panelRegistrar_3 = new JPanel();
+		panelRegistrar_3.setLayout(null);
+		panelRegistrar_3.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelRegistrar_3.setBounds(10, 218, 200, 110);
+		panelAdministrativo.add(panelRegistrar_3);
+		
+		JLabel lblConsultar = new JLabel("Consultar");
+		lblConsultar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConsultar.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblConsultar.setBounds(10, 11, 180, 28);
+		panelRegistrar_3.add(lblConsultar);
+		
+		JButton btnClientesinmuebles = new JButton("Datos (View Only)");
+		btnClientesinmuebles.setBounds(20, 49, 160, 50);
+		panelRegistrar_3.add(btnClientesinmuebles);
+		btnClientesinmuebles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Aplicacion.abrirConsultaDeDatosViewonly();
+			}
+		});
+		btnClientesinmuebles.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JTextArea txtrTuRol = new JTextArea();
+		txtrTuRol.setBackground(UIManager.getColor("Button.background"));
+		txtrTuRol.setWrapStyleWord(true);
+		txtrTuRol.setEditable(false);
+		txtrTuRol.setFont(new Font("Nirmala UI", Font.ITALIC, 14));
+		txtrTuRol.setLineWrap(true);
+		txtrTuRol.setText("* Tu rol no cuenta con los permisos suficientes para editar, autorizar o eliminar datos de la base de datos, solo eres capaz de consultarlos.");
+		txtrTuRol.setBounds(220, 232, 349, 96);
+		panelAdministrativo.add(txtrTuRol);
 		btnSalirAdministrativo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex(), false);
@@ -232,54 +326,6 @@ public class Interface extends JFrame {
 		        tabbedPane.setEnabledAt(0, true);
 			}
 		});
-		btnSalirAdministrativo.setBounds(460, 257, 109, 45);
-		panelAdministrativo.add(btnSalirAdministrativo);
-		
-		JPanel panelRegistrar = new JPanel();
-		panelRegistrar.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelRegistrar.setBounds(10, 11, 200, 142);
-		panelAdministrativo.add(panelRegistrar);
-		panelRegistrar.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Registrar");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 0, 180, 23);
-		panelRegistrar.add(lblNewLabel);
-		
-		JButton btnRegistrarCliente = new JButton("Clientes");
-		btnRegistrarCliente.setBounds(20, 34, 160, 23);
-		panelRegistrar.add(btnRegistrarCliente);
-		
-		JButton btnRegistrarInmueble = new JButton("Inmuebles");
-		btnRegistrarInmueble.setBounds(20, 66, 160, 23);
-		panelRegistrar.add(btnRegistrarInmueble);
-		
-		JButton btnContratos = new JButton("Contratos");
-		btnContratos.setBounds(20, 100, 160, 23);
-		panelRegistrar.add(btnContratos);
-		
-		JPanel panelConsultar = new JPanel();
-		panelConsultar.setLayout(null);
-		panelConsultar.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelConsultar.setBounds(220, 11, 200, 142);
-		panelAdministrativo.add(panelConsultar);
-		
-		JLabel lblConsultar = new JLabel("Consultar");
-		lblConsultar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConsultar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblConsultar.setBounds(10, 0, 180, 23);
-		panelConsultar.add(lblConsultar);
-		
-		JButton btnClientesinmuebles = new JButton("Clientes/Inmuebles");
-		btnClientesinmuebles.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultarDatos();
-			}
-		});
-		btnClientesinmuebles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnClientesinmuebles.setBounds(20, 34, 160, 25);
-		panelConsultar.add(btnClientesinmuebles);
 		btnRegistrarInmueble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrarInmueble();
@@ -292,8 +338,40 @@ public class Interface extends JFrame {
 		});
 		tabbedPane.setEnabledAt(3, false);
 		
+		ImageIcon banner = new ImageIcon(getClass().getClassLoader().getResource("banner.png"));
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(banner);
+		lblNewLabel_3.setBounds(25, 11, 569, 73);
+		panelIniciarSesion.add(lblNewLabel_3);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(10, 95, 559, 233);
+		panelIniciarSesion.add(panel);
+		panel.setLayout(null);
+		
 		// Boton "Continuar" del panel "Iniciar Sesion"
 		JButton btnContinuar = new JButton("Continuar");
+		btnContinuar.setBounds(190, 174, 180, 48);
+		panel.add(btnContinuar);
+		
+		JComboBox usuarioOpciones = new JComboBox();
+		usuarioOpciones.setBounds(190, 61, 180, 22);
+		panel.add(usuarioOpciones);
+		usuarioOpciones.setModel(new DefaultComboBoxModel(new String[] {"Ceo", "Gerente", "Administrativo"}));
+		
+		JLabel lblSeleccioneRol = new JLabel("Por favor, seleccione su rol.");
+		lblSeleccioneRol.setBounds(190, 36, 180, 14);
+		panel.add(lblSeleccioneRol);
+		lblSeleccioneRol.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSeleccioneRol.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblBienvenidoMain = new JLabel("Bienvenido");
+		lblBienvenidoMain.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenidoMain.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblBienvenidoMain.setBounds(190, 11, 180, 14);
+		panel.add(lblBienvenidoMain);
+		
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Si el usuario presiona el boton de continuar, agarremos el item actual seleccionado en JComboBox
@@ -321,9 +399,6 @@ public class Interface extends JFrame {
 				}
 			}
 		});
-		
-		btnContinuar.setBounds(227, 153, 89, 23);
-		panelIniciarSesion.add(btnContinuar);
 	}
 	
 	public static void registrarCliente() {

@@ -11,6 +11,7 @@ import capaInterface.Interfaz_Registrar_Clientes;
 import capaInterface.Interfaz_Registrar_Inmuebles;
 import capaInterface.Interfaz_Registrar_Contratos;
 import capaInterface.Interfaz_Consulta;
+import capaInterface.Interfaz_Consulta_ViewOnly;
 
 public class Aplicacion {
 
@@ -50,6 +51,11 @@ public class Aplicacion {
 	
 	public static void abrirConsultaDeDatos() {
 		Interfaz_Consulta frame = new Interfaz_Consulta();
+		frame.setVisible(true);
+	}
+	
+	public static void abrirConsultaDeDatosViewonly() {
+		Interfaz_Consulta_ViewOnly frame = new Interfaz_Consulta_ViewOnly();
 		frame.setVisible(true);
 	}
 }

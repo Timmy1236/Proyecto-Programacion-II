@@ -38,7 +38,7 @@ public class MisMetodosDB {
 	}
 	
 	/* Registrar */
-    public static void subirDatosCliente(int Cedula, String NombreApellido, String fechaNacimiento, String Email, int Telefono, String Inmuebles, String Tipo) {
+    public static void subirDatosCliente(int Cedula, String NombreApellido, Date fechaNacimiento, String Email, int Telefono, String Inmuebles, String Tipo) {
         try {
             // Cargar el driver
             if (!cargarDriver()) {
@@ -56,7 +56,7 @@ public class MisMetodosDB {
             PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
             preparedStatement.setInt(1, Cedula);
             preparedStatement.setString(2, NombreApellido);
-            preparedStatement.setString(3, fechaNacimiento);
+            preparedStatement.setDate(3, fechaNacimiento);
             preparedStatement.setString(4, Email);
             preparedStatement.setInt(5, Telefono);
             preparedStatement.setString(6, Inmuebles);
@@ -284,7 +284,7 @@ public class MisMetodosDB {
 	            break;
 	        }
 	        case "Contrato": {
-	        	columnas = new String[]{ "Numero Contrato", "Tipo", "Cedula", "Padron", "Fecha", "Fecha Inicio", "Fecha final", "Duración", "Precio x Mes", "Garantia", "Descripción", "Autorización" };
+	        	columnas = new String[]{ "ContratoNumero", "Tipo", "Cedula", "Padron", "Fecha", "Fecha Inicio", "Fecha final", "Duración", "Precio x Mes", "Garantia", "Descripción", "Autorización" };
 	        	break;
 	        }
 	        default: {
@@ -400,7 +400,7 @@ public class MisMetodosDB {
 		}
 	
 	/* Bajas */
-	public static void darBaja(String key, String tabla, Object keyBuscar) {
+	public static void darBaja(String key, String tabla, Object keyBuscarRaw) {
 		try {
             // Cargar el driver
             if (!cargarDriver()) {
@@ -413,11 +413,25 @@ public class MisMetodosDB {
 
             // Preparar la sentencia SQL con parámetros
             Statement registro = conectar.createStatement();
+            
+            // Pasamos el Object a String
+            String keyBuscar = keyBuscarRaw.toString();
+            
+            // Verificar si la cadena contiene solo dígitos
+            if (keyBuscar.matches("\\d+")) {
+                // Si contiene solo dígitos, convertir a int
+                int valorNumerico = Integer.parseInt(keyBuscar);
 
-            // Ejecutar la consulta
-            registro.executeUpdate("DELETE FROM "+tabla+" WHERE "+key+"='"+keyBuscar+"'");
+                // Ejecutar la consulta con el valor numérico
+                registro.executeUpdate("DELETE FROM "+tabla+" WHERE "+key+"="+valorNumerico);
 
-            JOptionPane.showMessageDialog(null, "El dato de la tabla "+tabla+" acaba de ser borrado correctamente del sistema.", "Dato borrado", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El dato de la tabla " + tabla + " acaba de ser borrado correctamente del sistema.", "Dato borrado", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                // Si contiene otros caracteres, usar como cadena en la consulta
+                registro.executeUpdate("DELETE FROM "+tabla+" WHERE "+key+"='"+keyBuscar+"'");
+
+                JOptionPane.showMessageDialog(null, "El dato de la tabla " + tabla + " acaba de ser borrado correctamente del sistema.", "Dato borrado", JOptionPane.PLAIN_MESSAGE);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -431,4 +445,46 @@ public class MisMetodosDB {
             }
         }
 	}
+	
+	 /* Actualizar Autorización de Contrato */
+    public static void autorizarContrato(int numeroContrato) {
+        try {
+            // Cargar el driver
+            if (!cargarDriver()) {
+                System.out.println("Error al cargar el driver.");
+                return;
+            }
+
+            // Establecer la conexión
+            conectar = DriverManager.getConnection(url, usuario, pass);
+
+            // Consulta SQL para actualizar la autorización
+            String consulta = "UPDATE Contrato SET Autorización = true WHERE ContratoNumero = ?";
+
+            // Preparar la sentencia SQL con parámetros
+            PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
+            preparedStatement.setInt(1, numeroContrato);
+
+            // Ejecutar la consulta
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+            	JOptionPane.showMessageDialog(null, "El contrato numero " + numeroContrato + " acaba de ser autorizado correctamente.", "Autorizado", JOptionPane.ERROR_MESSAGE);
+            } else {
+            	JOptionPane.showMessageDialog(null, "Error, acaba de ocurrir un error mientras se intantaba autorizar el contrato.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión
+            try {
+                if (conectar != null) {
+                    conectar.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    /* Actualizar Autorización de Contrato */
 }

@@ -35,29 +35,11 @@ public class Interfaz_Consulta extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 70, 894, 296);
+		scrollPane.setBounds(10, 57, 894, 309);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		JButton btnConsultarClientes = new JButton("Consultar Clientes");
-		btnConsultarClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultar(table, "SELECT * FROM Clientes;", "Clientes");
-			}
-		});
-		btnConsultarClientes.setBounds(10, 11, 149, 48);
-		contentPane.add(btnConsultarClientes);
-		
-		JButton btnConsultarTerrenos = new JButton("Consultar Terrenos");
-		btnConsultarTerrenos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble;", "Inmueble_Habitable");
-			}
-		});
-		btnConsultarTerrenos.setBounds(169, 11, 149, 48);
-		contentPane.add(btnConsultarTerrenos);
 		
 		JButton btnConsultarContratos = new JButton("Salir");
 		btnConsultarContratos.addActionListener(new ActionListener() {
@@ -66,17 +48,8 @@ public class Interfaz_Consulta extends JFrame {
 		        dispose();
 			}
 		});
-		btnConsultarContratos.setBounds(755, 11, 149, 48);
+		btnConsultarContratos.setBounds(755, 11, 149, 35);
 		contentPane.add(btnConsultarContratos);
-		
-		JButton btnConsultarContratos_1 = new JButton("Consultar Contratos");
-		btnConsultarContratos_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				table = MisMetodosDB.consultar(table, "SELECT * FROM Contrato;", "Contrato");
-			}
-		});
-		btnConsultarContratos_1.setBounds(328, 11, 149, 48);
-		contentPane.add(btnConsultarContratos_1);
 		
 		JButton brnConsultar = new JButton("Consultar");
 		brnConsultar.addActionListener(new ActionListener() {
@@ -84,26 +57,26 @@ public class Interfaz_Consulta extends JFrame {
 				int filaSeleccionada = table.getSelectedRow();
 				String resultado = "";
 
-                for (int i = 0; i < table.getColumnCount(); i++) {
-                	TableColumnModel columnModel = table.getColumnModel();
-                    String nombreColumna = columnModel.getColumn(i).getHeaderValue().toString();
-                    Object dato = table.getValueAt(filaSeleccionada, i);
+				if (filaSeleccionada != -1) {
+					for (int i = 0; i < table.getColumnCount(); i++) {
+						TableColumnModel columnModel = table.getColumnModel();
+						String nombreColumna = columnModel.getColumn(i).getHeaderValue().toString();
+						Object dato = table.getValueAt(filaSeleccionada, i);
 
-                    // Agregar al resultado solo si el dato no es null
-                    if (dato != null) {
-                        resultado += nombreColumna + ": " + dato;
+						// Agregar al resultado solo si el dato no es null
+						if (dato != null) {
+							resultado += nombreColumna + ": " + dato;
 
-                        // Agregar un salto de línea si no es la última columna
-                        if (i < table.getColumnCount() - 1) {
-                            resultado += "\n";
-                        }
-                    }
-                }
-
-                // Imprimir el resultado
-                System.out.println(resultado);
-                
-                JOptionPane.showMessageDialog(null, resultado, "Datos", JOptionPane.PLAIN_MESSAGE);
+							// Agregar un salto de línea si no es la última columna
+							if (i < table.getColumnCount() - 1) {
+								resultado += "\n";
+							}
+						}
+					}
+					JOptionPane.showMessageDialog(null, resultado, "Datos", JOptionPane.PLAIN_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Error, no seleccionastes ninguna fila para consultar.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		brnConsultar.setBounds(815, 377, 89, 23);
@@ -114,30 +87,84 @@ public class Interfaz_Consulta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int filaSeleccionada = table.getSelectedRow();
 
-                TableColumnModel columnModel = table.getColumnModel();
-                String nombreColumna = columnModel.getColumn(0).getHeaderValue().toString();
-                Object dato = table.getValueAt(filaSeleccionada, 0);
+				if (filaSeleccionada != -1) {
+					TableColumnModel columnModel = table.getColumnModel();
+					String nombreColumna = columnModel.getColumn(0).getHeaderValue().toString();
+					Object dato = table.getValueAt(filaSeleccionada, 0);
 
-                // Utilizar switch para determinar la tabla según el nombre de la columna
-                String tabla = "";
-                switch (nombreColumna) {
-                    case "Numero Contrato":
-                        tabla = "Contrato";
-                        break;
-                    case "Padron":
-                        tabla = "Inmueble";
-                        break;
-                    case "Cedula":
-                    	tabla = "Clientes";
-                    	break;
-                    default:
-                    	JOptionPane.showMessageDialog(null, "Error, acaba de ocurrir un error mientras se intantaba borrar el dato.", "Error", JOptionPane.ERROR_MESSAGE);
-                    	break;
-                }
-                MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+					// Utilizar switch para determinar la tabla según el nombre de la columna
+					String tabla = "";
+					switch (nombreColumna) {
+                    	case "ContratoNumero":
+                    		tabla = "Contrato";
+                        	break;
+                    	case "Padron":
+                    		tabla = "Inmueble";
+                    		break;
+                    	case "Cedula":
+                    		tabla = "Clientes";
+                    		break;
+                    	default:
+                    		JOptionPane.showMessageDialog(null, "Error, acaba de ocurrir un error mientras se intantaba borrar el dato.", "Error", JOptionPane.ERROR_MESSAGE);
+                    		break;
+					}
+					MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+				} else {
+					JOptionPane.showMessageDialog(null, "Error, no seleccionastes ninguna fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
-		btnEliminar.setBounds(716, 377, 89, 23);
+		btnEliminar.setBounds(10, 377, 89, 23);
 		contentPane.add(btnEliminar);
+		
+		JButton btnAutorizar = new JButton("Autorizar");
+		btnAutorizar.setEnabled(false);
+		btnAutorizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Verificar si hay una fila seleccionada
+		        int filaSeleccionada = table.getSelectedRow();
+		        if (filaSeleccionada != -1) {
+		            TableColumnModel columnModel = table.getColumnModel();
+		            String nombreColumna = columnModel.getColumn(0).getHeaderValue().toString();
+		            int dato = (int) table.getValueAt(filaSeleccionada, 0);
+
+		            MisMetodosDB.autorizarContrato(dato);
+		        } else {
+		        	JOptionPane.showMessageDialog(null, "Error, no seleccionastes ningun contrato para autorizar.", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+			}
+		});
+		btnAutorizar.setBounds(716, 377, 89, 23);
+		contentPane.add(btnAutorizar);
+		
+		JButton btnConsultarContratos_1 = new JButton("Consultar Contratos");
+		btnConsultarContratos_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAutorizar.setEnabled(true);
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Contrato;", "Contrato");
+			}
+		});
+		btnConsultarContratos_1.setBounds(328, 11, 149, 35);
+		contentPane.add(btnConsultarContratos_1);
+		
+		JButton btnConsultarTerrenos = new JButton("Consultar Inmueble");
+		btnConsultarTerrenos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAutorizar.setEnabled(false);
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Inmueble;", "Inmueble_Habitable");
+			}
+		});
+		btnConsultarTerrenos.setBounds(169, 11, 149, 35);
+		contentPane.add(btnConsultarTerrenos);
+		
+		JButton btnConsultarClientes = new JButton("Consultar Clientes");
+		btnConsultarClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAutorizar.setEnabled(false);
+				table = MisMetodosDB.consultar(table, "SELECT * FROM Clientes;", "Clientes");
+			}
+		});
+		btnConsultarClientes.setBounds(10, 11, 149, 35);
+		contentPane.add(btnConsultarClientes);
 	}
 }
