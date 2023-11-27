@@ -70,6 +70,13 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		panelInmueble.add(lblUbicacindepartamentoCalle);
 		
 		textNDePadron = new JTextField();
+		textNDePadron.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (textNDePadron.getText().length() >= 14 ) 
+	                e.consume();
+			}
+		});
 		textNDePadron.setColumns(10);
 		textNDePadron.setBounds(169, 33, 200, 20);
 		panelInmueble.add(textNDePadron);

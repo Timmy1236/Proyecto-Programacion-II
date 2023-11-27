@@ -103,6 +103,13 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		panelContrato.add(lblInmuebleInvolucrado_2);
 		
 		textInmueble = new JTextField();
+		textInmueble.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (textInmueble.getText().length() >= 8 ) 
+	                e.consume();
+			}
+		});
 		textInmueble.setColumns(10);
 		textInmueble.setBounds(220, 97, 200, 20);
 		panelContrato.add(textInmueble);
