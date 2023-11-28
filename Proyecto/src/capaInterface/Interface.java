@@ -32,7 +32,7 @@ public class Interface extends JFrame {
 	
 	public Interface() {
 		setResizable(false);
-		setTitle("Inmobiliaria ITS");
+		setTitle("Inmobiliaria");
 		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
 		setIconImage(logo.getImage());
 		

@@ -180,7 +180,7 @@ public class MisMetodosDB {
             conectar = DriverManager.getConnection(url, usuario, pass);
 
             // Consulta SQL para insertar datos en la tabla "clientes"
-            String consulta = "INSERT INTO Inmueble (Padron, Ubicacion, Valor, Tamaño, Servicios, Tipo) VALUES (?, ?, ?, ?, ?)";
+            String consulta = "INSERT INTO Inmueble (Padron, Ubicacion, Valor, Tamaño, Servicios, Tipo) VALUES (?, ?, ?, ?, ?, ?)";
 
             // Preparar la sentencia SQL con parámetros
             PreparedStatement preparedStatement = conectar.prepareStatement(consulta);
