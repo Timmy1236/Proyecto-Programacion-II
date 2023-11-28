@@ -30,7 +30,7 @@ public class Interfaz_Consulta extends JFrame {
 		setIconImage(logo.getImage());
 		setResizable(false);
 		setTitle("Consultar Datos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 930, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
