@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
@@ -42,6 +44,8 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 	 * Create the frame.
 	 */
 	public Interfaz_Registrar_Contratos() {
+		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
+		setIconImage(logo.getImage());
 		setTitle("Registrando Contrato");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +141,7 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		btnCancelar_2.setBounds(369, 260, 200, 42);
 		panelContrato.add(btnCancelar_2);
 		
-		JLabel lblNewLabel = new JLabel("(55758216)");
+		JLabel lblNewLabel = new JLabel("(3968443)");
 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(440, 78, 129, 14);

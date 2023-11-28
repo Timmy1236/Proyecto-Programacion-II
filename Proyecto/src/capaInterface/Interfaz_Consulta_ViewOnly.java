@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import capaNegocios.MisMetodosDB;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,8 @@ public class Interfaz_Consulta_ViewOnly extends JFrame {
 
 	// Creamos la interfaz
 	public Interfaz_Consulta_ViewOnly() {
+		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
+		setIconImage(logo.getImage());
 		setResizable(false);
 		setTitle("Consultar Datos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

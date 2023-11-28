@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import capaNegocios.MisMetodosDB;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SpinnerDateModel;
@@ -44,10 +45,11 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 
 	// Creamos la interfaz
 	public Interfaz_Registrar_Clientes() {
-		setAlwaysOnTop(true);
+		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
+		setIconImage(logo.getImage());
 		setTitle("Registrador de Clientes");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 600, 380);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -159,19 +161,19 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		lblAño.setBounds(54, 95, 127, 14);
 		contentPane.add(lblAño);
 				
-		JLabel lblNewLabel_1 = new JLabel("(55758216)");
+		JLabel lblNewLabel_1 = new JLabel("(3968443)");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_1.setBounds(401, 14, 173, 14);
 		contentPane.add(lblNewLabel_1);
 				
-		JLabel lblNewLabel_1_4 = new JLabel("(nombre@gmail.com)");
+		JLabel lblNewLabel_1_4 = new JLabel("(jhon_doe@gmail.com)");
 		lblNewLabel_1_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_1_4.setBounds(401, 133, 173, 14);
 		contentPane.add(lblNewLabel_1_4);
 				
-		JLabel lblNewLabel_1_5 = new JLabel("(098729884)");
+		JLabel lblNewLabel_1_5 = new JLabel("(977901489)");
 		lblNewLabel_1_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_1_5.setBounds(401, 167, 173, 14);

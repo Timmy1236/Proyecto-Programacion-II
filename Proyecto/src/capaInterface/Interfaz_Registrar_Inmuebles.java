@@ -13,6 +13,8 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
@@ -39,8 +41,9 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 
 	// Creamos la interfaz
 	public Interfaz_Registrar_Inmuebles() {
+		ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon.png"));
+		setIconImage(logo.getImage());
 		setResizable(false);
-		setAlwaysOnTop(true);
 		setTitle("Registrador de Inmuebles");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 380);
