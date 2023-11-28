@@ -79,7 +79,7 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		
 		JLabel lblClienteInvolucrado_2 = new JLabel("Cliente Involucrado");
 		lblClienteInvolucrado_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblClienteInvolucrado_2.setBounds(40, 61, 150, 14);
+		lblClienteInvolucrado_2.setBounds(40, 76, 150, 14);
 		panelContrato.add(lblClienteInvolucrado_2);
 		
 		textCliente = new JTextField();
@@ -94,24 +94,24 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 			}
 		});
 		textCliente.setColumns(10);
-		textCliente.setBounds(220, 61, 200, 20);
+		textCliente.setBounds(220, 75, 200, 20);
 		panelContrato.add(textCliente);
 		
 		JLabel lblInmuebleInvolucrado_2 = new JLabel("Inmueble Involucrado");
 		lblInmuebleInvolucrado_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblInmuebleInvolucrado_2.setBounds(40, 95, 150, 14);
+		lblInmuebleInvolucrado_2.setBounds(40, 131, 150, 14);
 		panelContrato.add(lblInmuebleInvolucrado_2);
 		
 		textInmueble = new JTextField();
 		textInmueble.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (textInmueble.getText().length() >= 8 ) 
+				if (textInmueble.getText().length() >= 14 ) 
 	                e.consume();
 			}
 		});
 		textInmueble.setColumns(10);
-		textInmueble.setBounds(220, 97, 200, 20);
+		textInmueble.setBounds(220, 130, 200, 20);
 		panelContrato.add(textInmueble);
 		
 		JButton btnContinuar = new JButton("Continuar");
@@ -136,6 +136,24 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 		btnCancelar_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCancelar_2.setBounds(369, 260, 200, 42);
 		panelContrato.add(btnCancelar_2);
+		
+		JLabel lblNewLabel = new JLabel("(55758216)");
+		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(440, 78, 129, 14);
+		panelContrato.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("(01-01-001-0000)");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1.setBounds(440, 133, 129, 14);
+		panelContrato.add(lblNewLabel_1);
+		
+		JLabel lblO = new JLabel("(1, 2 o 3)");
+		lblO.setHorizontalAlignment(SwingConstants.CENTER);
+		lblO.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblO.setBounds(440, 26, 129, 14);
+		panelContrato.add(lblO);
 		
 		JPanel panelTipo = new JPanel();
 		tabbedPane.addTab("Tipo", null, panelTipo, null);
@@ -290,6 +308,8 @@ public class Interfaz_Registrar_Contratos extends JFrame {
 						java.sql.Date fecha = new java.sql.Date(time);
 						
 						MisMetodosDB.subirDatosContratoCompraVenta(numeroContrato, "Compra/Venta", cedulaCliente, padronInmueble, descripcion, fecha);
+					
+						dispose();
 					}
 				}
 			}

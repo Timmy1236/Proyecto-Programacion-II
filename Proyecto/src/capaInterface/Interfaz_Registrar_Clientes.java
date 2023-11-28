@@ -57,22 +57,22 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		
 		JLabel lblCedula = new JLabel("Cédula de identidad");
 		lblCedula.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCedula.setBounds(40, 14, 127, 14);
+		lblCedula.setBounds(54, 14, 127, 14);
 		contentPane.add(lblCedula);
 		
 		JLabel lblNombre = new JLabel("Nombre y Apellido");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNombre.setBounds(40, 51, 127, 14);
+		lblNombre.setBounds(54, 51, 127, 14);
 		contentPane.add(lblNombre);
 		
 		JLabel lblEmail = new JLabel("E-Mail");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEmail.setBounds(40, 133, 127, 14);
+		lblEmail.setBounds(54, 133, 127, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblTelefono = new JLabel("Teléfono");
 		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTelefono.setBounds(40, 167, 127, 14);
+		lblTelefono.setBounds(54, 167, 127, 14);
 		contentPane.add(lblTelefono);
 		
 		textCedula = new JTextField();
@@ -86,7 +86,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 	                e.consume();
 			}
 		});
-		textCedula.setBounds(177, 11, 200, 20);
+		textCedula.setBounds(191, 11, 200, 20);
 		contentPane.add(textCedula);
 		textCedula.setColumns(10);
 		
@@ -98,7 +98,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 			}
 		});
 		textNombre.setColumns(10);
-		textNombre.setBounds(177, 48, 200, 20);
+		textNombre.setBounds(191, 48, 200, 20);
 		contentPane.add(textNombre);
 		
 		textEmail = new JTextField();
@@ -109,7 +109,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 			}
 		});
 		textEmail.setColumns(10);
-		textEmail.setBounds(177, 130, 200, 20);
+		textEmail.setBounds(191, 130, 200, 20);
 		contentPane.add(textEmail);
 		
 		textTelefono = new JTextField();
@@ -120,7 +120,7 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 			}
 		});
 		textTelefono.setColumns(10);
-		textTelefono.setBounds(177, 164, 200, 20);
+		textTelefono.setBounds(191, 164, 200, 20);
 		contentPane.add(textTelefono);
 		
 		btnCancelar = new JButton("Cancelar");
@@ -136,51 +136,55 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		
 		lblTipo = new JLabel("Tipo");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTipo.setBounds(40, 205, 137, 14);
+		lblTipo.setBounds(54, 205, 137, 14);
 		contentPane.add(lblTipo);
 		
 		JComboBox comboBoxClienteTipo = new JComboBox();
 		comboBoxClienteTipo.setModel(new DefaultComboBoxModel(new String[] {"Dueño", "Comprador/Alquila"}));
-		comboBoxClienteTipo.setBounds(177, 201, 200, 22);
+		comboBoxClienteTipo.setBounds(191, 201, 200, 22);
 		contentPane.add(comboBoxClienteTipo);
 		
 		JLabel lblInmuebles = new JLabel("Inmuebles");
 		lblInmuebles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblInmuebles.setBounds(40, 245, 127, 14);
+		lblInmuebles.setBounds(54, 245, 127, 14);
 		contentPane.add(lblInmuebles);
 		
 		textInmuebles = new JTextField();
 		textInmuebles.setColumns(10);
-		textInmuebles.setBounds(177, 242, 200, 20);
+		textInmuebles.setBounds(191, 242, 200, 20);
 		contentPane.add(textInmuebles);
 		
 		JLabel lblAño = new JLabel("Fecha Nacimiento");
 		lblAño.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAño.setBounds(40, 95, 127, 14);
+		lblAño.setBounds(54, 95, 127, 14);
 		contentPane.add(lblAño);
 				
 		JLabel lblNewLabel_1 = new JLabel("(55758216)");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		lblNewLabel_1.setBounds(387, 14, 140, 14);
+		lblNewLabel_1.setBounds(401, 14, 173, 14);
 		contentPane.add(lblNewLabel_1);
 				
 		JLabel lblNewLabel_1_4 = new JLabel("(nombre@gmail.com)");
+		lblNewLabel_1_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		lblNewLabel_1_4.setBounds(387, 133, 140, 14);
+		lblNewLabel_1_4.setBounds(401, 133, 173, 14);
 		contentPane.add(lblNewLabel_1_4);
 				
 		JLabel lblNewLabel_1_5 = new JLabel("(098729884)");
+		lblNewLabel_1_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		lblNewLabel_1_5.setBounds(387, 167, 140, 14);
+		lblNewLabel_1_5.setBounds(401, 167, 173, 14);
 		contentPane.add(lblNewLabel_1_5);
 				
-		JLabel lblNewLabel_1_7 = new JLabel("Seprar en comas (1, 2)");
+		JLabel lblNewLabel_1_7 = new JLabel("(Seprar en comas: 1, 2)");
+		lblNewLabel_1_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_7.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		lblNewLabel_1_7.setBounds(387, 245, 140, 14);
+		lblNewLabel_1_7.setBounds(401, 245, 173, 14);
 		contentPane.add(lblNewLabel_1_7);
 				
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(177, 91, 200, 20);
+		dateChooser.setBounds(191, 91, 200, 20);
 		contentPane.add(dateChooser);
 		
 		// NOTE: Esto siempre que quede como ultimo en el codigo, para evitar errores :)
@@ -216,5 +220,17 @@ public class Interfaz_Registrar_Clientes extends JFrame {
 		btnListo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListo.setBounds(10, 288, 200, 42);
 		contentPane.add(btnListo);
+		
+		JLabel lblNewLabel_1_7_1 = new JLabel("(Dueño o Comprador/Alquiler)");
+		lblNewLabel_1_7_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_7_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1_7_1.setBounds(401, 207, 173, 14);
+		contentPane.add(lblNewLabel_1_7_1);
+		
+		JLabel lblNewLabel_1_7_2 = new JLabel("(Jhon Doe)");
+		lblNewLabel_1_7_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_7_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_1_7_2.setBounds(401, 53, 173, 14);
+		contentPane.add(lblNewLabel_1_7_2);
 	}
 }

@@ -399,6 +399,88 @@ public class MisMetodosDB {
 			return encontro;
 		}
 	
+	public static boolean tieneContratosCliente(Object cedula) {
+	    boolean tieneContratos = false;
+
+	    try {
+	        // Realizar la conexión y abrir la base de datos usando la URL, el usuario y la contraseña.
+	        conectar = DriverManager.getConnection(url, usuario, pass);
+
+	        // Verificar si hay contratos asociados con el cliente.
+	        String sentenciaContrato = "SELECT * FROM Contrato WHERE Cedula=" + cedula + ";";
+	        sentenciaSQL = conectar.createStatement();
+	        resultado = sentenciaSQL.executeQuery(sentenciaContrato);
+
+	        // Si hay resultado, es que hay contratos asociados.
+	        if (resultado.next()) {
+	            tieneContratos = true;
+	        }
+
+	        // Cerrar la conexión
+	        conectar.close();
+	    } catch (SQLException e) {
+	        // Manejar errores
+	        System.out.println(e.getMessage());
+	    }
+
+	    return tieneContratos;
+	}
+	
+	public static boolean tieneContratosInmueble(Object padron) {
+	    boolean tieneContratos = false;
+
+	    try {
+	        // Realizar la conexión y abrir la base de datos usando la URL, el usuario y la contraseña.
+	        conectar = DriverManager.getConnection(url, usuario, pass);
+
+	        // Verificar si hay contratos asociados con el inmueble.
+	        String sentenciaContrato = "SELECT * FROM Contrato WHERE PadronInmueble='" + padron + "';";
+	        sentenciaSQL = conectar.createStatement();
+	        resultado = sentenciaSQL.executeQuery(sentenciaContrato);
+
+	        // Si hay resultado, es que hay contratos asociados.
+	        if (resultado.next()) {
+	            tieneContratos = true;
+	        }
+
+	        // Cerrar la conexión
+	        conectar.close();
+	    } catch (SQLException e) {
+	        // Manejar errores
+	        System.out.println(e.getMessage());
+	    }
+
+	    return tieneContratos;
+	}
+	
+	public static boolean verificarBajaContrato(Object contratoNumero) {
+	    boolean bajaPermitida = true;
+
+	    try {
+	        // Realizar la conexión y abrir la base de datos usando la URL, el usuario y la contraseña.
+	        conectar = DriverManager.getConnection(url, usuario, pass);
+
+	        // Verificar si el contrato está autorizado.
+	        String sentenciaContrato = "SELECT * FROM Contrato WHERE ContratoNumero=" + contratoNumero + " AND Autorización=true;";
+	        sentenciaSQL = conectar.createStatement();
+	        resultado = sentenciaSQL.executeQuery(sentenciaContrato);
+
+	        // Si hay resultado, es que el contrato está autorizado.
+	        if (resultado.next()) {
+	            bajaPermitida = false;
+	        }
+
+	        // Cerrar la conexión
+	        conectar.close();
+	    } catch (SQLException e) {
+	        // Manejar errores
+	        System.out.println(e.getMessage());
+	    }
+
+	    return bajaPermitida;
+	}
+	/* Validar DB*/
+	
 	/* Bajas */
 	public static void darBaja(String key, String tabla, Object keyBuscarRaw) {
 		try {
@@ -469,7 +551,7 @@ public class MisMetodosDB {
             int filasAfectadas = preparedStatement.executeUpdate();
 
             if (filasAfectadas > 0) {
-            	JOptionPane.showMessageDialog(null, "El contrato numero " + numeroContrato + " acaba de ser autorizado correctamente.", "Autorizado", JOptionPane.ERROR_MESSAGE);
+            	JOptionPane.showMessageDialog(null, "El contrato numero " + numeroContrato + " acaba de ser autorizado correctamente.", "Autorizado", JOptionPane.PLAIN_MESSAGE);
             } else {
             	JOptionPane.showMessageDialog(null, "Error, acaba de ocurrir un error mientras se intantaba autorizar el contrato.", "Error", JOptionPane.ERROR_MESSAGE);
             }

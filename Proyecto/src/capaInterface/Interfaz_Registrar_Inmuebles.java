@@ -97,7 +97,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		btnCancelar.setBounds(349, 238, 200, 42);
 		panelInmueble.add(btnCancelar);
 		
-		JLabel lblNewLabel_1 = new JLabel("Departamento, calle, nº de puerta");
+		JLabel lblNewLabel_1 = new JLabel("(Departamento, calle, nº puerta)");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_1.setBounds(363, 103, 186, 14);
@@ -131,7 +131,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		textValor.setBounds(169, 165, 200, 20);
 		panelInmueble.add(textValor);
 		
-		JLabel lblNewLabel_2 = new JLabel("(01-01-0001-000)");
+		JLabel lblNewLabel_2 = new JLabel("(01-01-001-0000)");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(373, 36, 176, 14);
@@ -392,7 +392,7 @@ public class Interfaz_Registrar_Inmuebles extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("(En m2)");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		lblNewLabel_4.setBounds(361, 61, 169, 14);
+		lblNewLabel_4.setBounds(347, 61, 169, 14);
 		panelTerreno.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("(OSE, UTE, etc)");

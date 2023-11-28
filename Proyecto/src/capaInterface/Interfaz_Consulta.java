@@ -91,24 +91,62 @@ public class Interfaz_Consulta extends JFrame {
 					TableColumnModel columnModel = table.getColumnModel();
 					String nombreColumna = columnModel.getColumn(0).getHeaderValue().toString();
 					Object dato = table.getValueAt(filaSeleccionada, 0);
+					Object dato2 = table.getValueAt(filaSeleccionada, 2);
+					Object dato3 = table.getValueAt(filaSeleccionada, 3);
+					
+					System.out.println(dato);
+					System.out.println(dato2);
+					System.out.println(dato3);
+					System.out.println(" ");
+					System.out.println(nombreColumna);
 
 					// Utilizar switch para determinar la tabla según el nombre de la columna
 					String tabla = "";
 					switch (nombreColumna) {
                     	case "ContratoNumero":
                     		tabla = "Contrato";
+                    		
+                    		if (MisMetodosDB.verificarBajaContrato(dato)) {
+                    		    // El contrato no está autorizado, se puede permitir la baja.
+                    		    MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+                    		} else {
+                    		    JOptionPane.showMessageDialog(null, "No se puede dar de baja el contrato. Está autorizado.", "Error", JOptionPane.ERROR_MESSAGE);
+                    		}
+
                         	break;
                     	case "Padron":
                     		tabla = "Inmueble";
+                    		
+                    		if (!MisMetodosDB.tieneContratosInmueble(dato)) {
+                    		    // No hay contratos asociados con el cliente, se puede permitir la baja.
+                    		    MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+                    		} else {
+                    		    JOptionPane.showMessageDialog(null, "No se puede dar de baja el inmueble. Hay contratos asociados.", "Error", JOptionPane.ERROR_MESSAGE);
+                    		}
                     		break;
                     	case "Cedula":
                     		tabla = "Clientes";
+                    		
+                    		if (!MisMetodosDB.tieneContratosCliente(dato)) {
+                    		    // No hay contratos asociados con el cliente, se puede permitir la baja.
+                    		    MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+                    		} else {
+                    		    JOptionPane.showMessageDialog(null, "No se puede dar de baja el cliente. Hay contratos asociados.", "Error", JOptionPane.ERROR_MESSAGE);
+                    		}
                     		break;
                     	default:
                     		JOptionPane.showMessageDialog(null, "Error, acaba de ocurrir un error mientras se intantaba borrar el dato.", "Error", JOptionPane.ERROR_MESSAGE);
                     		break;
 					}
-					MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+					
+					//if (!MisMetodosDB.verificarClienteInmuebleExistente(cedula, padron)) {
+					    // La combinación de cedula y padron no existe en Contrato, se puede borrar el dato.
+					    //MisMetodosDB.darBaja(nombreColumna, tabla, dato);
+					//} else {
+					    //JOptionPane.showMessageDialog(null, "No se puede borrar el dato. Combinación Cliente/Inmueble existente en Contrato.", "Error", JOptionPane.ERROR_MESSAGE);
+					//}
+					
+					//MisMetodosDB.darBaja(nombreColumna, tabla, dato);
 				} else {
 					JOptionPane.showMessageDialog(null, "Error, no seleccionastes ninguna fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
